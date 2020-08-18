@@ -10,3 +10,5 @@ UI 정보 확인: http://localhost:8080/swagger-ui.html
 https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
 
 https://jojoldu.tistory.com/31
+
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md#operationObject
