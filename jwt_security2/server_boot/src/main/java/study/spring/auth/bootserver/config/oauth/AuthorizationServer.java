@@ -38,6 +38,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         security.passwordEncoder(passwordEncoder);
     }
 
+    // 토큰 발급 정보
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
