@@ -35,4 +35,8 @@ public class Member {
         this.name = name;
         this.role = role;
     }
+
+    public void encodingPassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
 }
