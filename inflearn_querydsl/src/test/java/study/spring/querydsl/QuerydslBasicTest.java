@@ -1,10 +1,13 @@
 package study.spring.querydsl;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryFactory;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
@@ -15,8 +18,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.querydsl.dto.MemberDto;
+import study.spring.querydsl.dto.QMemberDto;
 import study.spring.querydsl.dto.UserDto;
 import study.spring.querydsl.entity.Member;
 import study.spring.querydsl.entity.QMember;
@@ -576,4 +581,100 @@ public class QuerydslBasicTest {
         }
     }
 
+    // constructor와의 차이점은 필드에 차이가 있을 때 런타임에 오류가 발생한다
+    // QMemberDto를 사용하면 좋지만 Que rydsl에 의존성을 가지게 된다
+    @Test
+    public void findDtoByQeuryProjection() {
+
+        List<MemberDto> result = queryFactory
+                .select(new QMemberDto(member.username, member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println(memberDto);
+        }
+    }
+
+    @Test
+    public void dynamicQuery_booleanBuilder() {
+        String usernameParam = "member1";
+        Integer ageParam = null;
+
+        List<Member> result = searchMember1(usernameParam, ageParam);
+        assertThat(result.size()).isEqualTo(1);
+    }
+
+    private List<Member> searchMember1(String usernameCond, Integer ageCond) {
+
+        //BooleanBuilder builder = new BooleanBuilder(member.username.eq(usernameCond));
+
+        BooleanBuilder builder = new BooleanBuilder();
+        if (usernameCond != null) {
+            builder.and(member.username.eq(usernameCond));
+        }
+
+        if (ageCond != null) {
+            builder.and(member.age.eq(ageCond));
+        }
+
+        return queryFactory
+                .selectFrom(member)
+                .where(builder)
+                .fetch();
+    }
+
+    @Test
+    public void dynamicQuery_whereParam() {
+        String usernameParam = "member1";
+        Integer ageParam = 10;
+
+        List<Member> result = searchMember2(usernameParam, ageParam);
+        assertThat(result.size()).isEqualTo(1);
+    }
+
+    private List<Member> searchMember2(String usernameCond, Integer ageCond) {
+        return queryFactory
+                .selectFrom(member)
+                .where(allEq(usernameCond, ageCond))
+                .fetch();
+    }
+
+    // where에 null 값은 무시된
+    // 조립을 할 수 있다는 장점
+    // 재사용 할 수 있다
+    private BooleanExpression ageEq(Integer ageCond) {
+        return ageCond != null ? member.age.eq(ageCond) : null;
+    }
+
+    private BooleanExpression usernameEq(String usernameCond) {
+        return usernameCond != null ? member.username.eq(usernameCond) : null;
+    }
+
+    private BooleanExpression allEq(String username, Integer age) {
+        return ageEq(age).and(usernameEq(username));
+    }
+
+    @Test
+    public void bulkUpdate() {
+        long count = queryFactory
+                .update(member)
+                .set(member.age, member.age.add(1))
+                .where(member.age.lt(28))
+                .execute();
+
+        em.flush();
+        em.clear();
+    }
+
+    @Test
+    public void bulkDelete() {
+        long count = queryFactory
+                .delete(member)
+                .where(member.age.lt(28))
+                .execute();
+
+        em.flush();
+        em.clear();
+    }
 }
