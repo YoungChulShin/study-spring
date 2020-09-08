@@ -1,0 +1,12 @@
+version: '2'
+services:
+  querydsl-mysql:
+    image: mysql:latest
+#    volumes:
+#      - ~/volumes/querydsl/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=querydsl
+    ports:
+      - 3306:3306
