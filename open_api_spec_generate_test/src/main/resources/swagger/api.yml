@@ -1,0 +1,24 @@
+# Reference Document: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#oasObject
+
+# 버전 정보 (필수)
+openapi: '3.0.3'
+# Api 메타 정보
+info:
+  title: member creation
+  version: 0.0.1
+  description: |
+    - [Github](https://github.com/YoungChulShin/study_spring/tree/master/open_api_spec_generate_test)
+  termsOfService: 'http://www.naver.com'
+  contact:
+    name: service engineer
+    url: http://www.example.com/support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost:8080
+    description: test server
+  - url: http://localhost:8081
+    description: test server2
+paths:
