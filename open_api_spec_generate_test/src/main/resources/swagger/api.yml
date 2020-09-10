@@ -271,6 +271,7 @@ components:
       description: 멤버 Id
       schema:
         $ref: '#/components/schemas/MemberId'
+      required: true
 
   responses:
 
@@ -338,10 +339,3 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/ProblemDetails'
-
-
-# A declaration of which security mechanisms can be used across the API
-security:
-
-# Additional external documentation.
-externalDocs:

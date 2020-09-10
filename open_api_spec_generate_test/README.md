@@ -4,9 +4,10 @@ Open Api Spec. 을 이용해서 코드 생성 및 활용을 테스트 한다
 ### Open Api Spec. 
 - Github: [https://github.com/OAI/OpenAPI-Specification](https://github.com/OAI/OpenAPI-Specification)
 - 3.0.3 Spec: [Link](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md)
+- OpenApi Generate tool: [Link](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin)
 
 ### API Spec. 
-간단한 Member 을 생성하고, 수ㄴㅁ정하고, 조회하고, 삭제하는 Api를 만들어본다
+간단한 Member 을 생성하고, 수정정하고, 조회하고, 삭제하는 Api를 만들어본다
 
 Member 생성
 - POST
