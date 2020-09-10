@@ -16,14 +16,11 @@ Member 정보
 - phone: 연락처
 
 Member 생성
-- POST
-- /api/members
-- name, age, gender, phone
+- POST /api/members
 
 Member 수정
 - Put
 - /api/members/{member id}
-- name, age, gender, phone
 
 Member 삭제
 - Delete
