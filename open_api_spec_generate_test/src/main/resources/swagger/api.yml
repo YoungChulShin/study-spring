@@ -102,6 +102,11 @@ paths:
       operationId: updateMember
       tags:
         - Member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberRequest'
       responses:
         '200':
           description: Ok
@@ -131,7 +136,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/responses/CreatedWithHeader'
+                $ref: '#/components/schemas/DeleteMemberResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -156,7 +161,7 @@ components:
 
     MemberId:
       type: integer
-      format: int65
+      format: int64
       example: 1
 
     #----------------------------------------
@@ -168,6 +173,33 @@ components:
     #----------------------------------------
 
     CreateMemberRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 멤버 이름
+          example: youngchulshin
+        age:
+          type: integer
+          format: int32
+          description: 멤버 나이
+          example: 30
+        phone:
+          type: string
+          description: 연락처
+          example: 123-456-7890
+        gender:
+          type: string
+          description: 성별
+          enum:
+            - male
+            - female
+      required:
+        - name
+        - age
+        - gender
+
+    UpdateMemberRequest:
       type: object
       properties:
         name:
@@ -226,6 +258,14 @@ components:
         gender:
           type: string
           example: femail
+
+    DeleteMemberResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
 
 
     #----------------------------------------

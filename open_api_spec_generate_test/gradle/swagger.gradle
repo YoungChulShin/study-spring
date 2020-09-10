@@ -20,4 +20,12 @@ openApiGenerate {
     importMappings = [Problem:"org.zalando.problem.Problem"]
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir file("${project.buildDir.path}/openapi/src/main/java")
+        }
+    }
+}
+
 compileJava.dependsOn("openApiGenerate")

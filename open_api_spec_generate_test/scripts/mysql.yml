@@ -1,0 +1,10 @@
+version: '2'
+services:
+  member-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=openapi
+    ports:
+    - 3306:3306
