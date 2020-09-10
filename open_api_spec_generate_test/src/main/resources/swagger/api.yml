@@ -16,9 +16,332 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+# 서버 리스트 정보
 servers:
   - url: http://localhost:8080
     description: test server
   - url: http://localhost:8081
     description: test server2
+# The available paths and operations for the API
 paths:
+  /api/members:
+    get:
+      description: 멤버 리스트를 조회합니다
+      operationId: getMembers
+      tags:
+        - Member
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MembersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    post:
+      description: 새로운 멤버를 생성합니다
+      operationId: createMember
+      tags:
+        - Member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMemberRequest'
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/CreatedWithHeader'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/members/{memberId}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/MemberIdParam'
+      description: 멤버를 조회합니다
+      operationId: getMember
+      tags:
+        - Member
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    put:
+      parameters:
+        - $ref: '#/components/parameters/MemberIdParam'
+      description: 멤버를 수정합니다
+      operationId: updateMember
+      tags:
+        - Member
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    delete:
+      parameters:
+        - $ref: '#/components/parameters/MemberIdParam'
+      description: 멤버를 삭제합니다
+      operationId: deleteMember
+      tags:
+        - Member
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/CreatedWithHeader'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+        # An element to hold various schemas for the specification
+components:
+
+  schemas:
+
+    #----------------------------------------
+    # API fields
+    #----------------------------------------
+    LongId:
+      type: integer
+      format: int64
+      example: 1
+
+    MemberId:
+      type: integer
+      format: int65
+      example: 1
+
+    #----------------------------------------
+    # API model
+    #----------------------------------------
+
+    #----------------------------------------
+    # Request models
+    #----------------------------------------
+
+    CreateMemberRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 멤버 이름
+          example: youngchulshin
+        age:
+          type: integer
+          format: int32
+          description: 멤버 나이
+          example: 30
+        phone:
+          type: string
+          description: 연락처
+          example: 123-456-7890
+        gender:
+          type: string
+          description: 성별
+          enum:
+            - male
+            - female
+      required:
+        - name
+        - age
+        - gender
+
+    #----------------------------------------
+    # Response Model
+    #----------------------------------------
+
+    MembersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemberResponse'
+
+    MemberResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: youngchulshin
+        age:
+          type: integer
+          format: int32
+          example: 30
+        phone:
+          type: string
+          example: 123-456-7890
+        gender:
+          type: string
+          example: femail
+
+
+    #----------------------------------------
+    # Common Model
+    #----------------------------------------
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          example: v1/test
+        title:
+          type: string
+          example: 제출한 요청이 유효하지 않습니다
+        detail:
+          type: string
+        fieldErrors:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/FieldError'
+
+    FieldError:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          $ref: '#/components/schemas/ErrorCode'
+
+    ErrorCode:
+      type: string
+      example:
+        - NotNull
+        - Size
+
+  parameters:
+    MemberIdParam:
+      in: path
+      name: memberId
+      description: 멤버 Id
+      schema:
+        $ref: '#/components/schemas/MemberId'
+
+  responses:
+
+    #----------------------------------------
+    # Common Response
+    #----------------------------------------
+
+    CreatedWithHeader:
+      description: Created
+      headers:
+        X-Resource-Id:
+          description: 생성된 리소스 식별자
+          schema:
+            $ref: '#/components/schemas/LongId'
+
+    Accepted:
+      description: Accepted
+
+    NoContent:
+      description: No Content
+
+    EmptyContent:
+      description: Empty Content
+      content:
+        application/json: { }
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Conflict:
+      description: Conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+
+# A declaration of which security mechanisms can be used across the API
+security:
+
+# Additional external documentation.
+externalDocs:
