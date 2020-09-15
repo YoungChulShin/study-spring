@@ -1,0 +1,10 @@
+version: '3'
+services:
+  liquibase-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=liquibase
+    ports:
+    - 3306:3306
