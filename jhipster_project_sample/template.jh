@@ -1,0 +1,38 @@
+application {
+  config {
+    applicationType microservice
+    baseName yourappname
+    packageName com.vroong.yourappname
+    authenticationType uaa
+    uaaBaseName "uaa"
+    buildTool gradle
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    cacheProvider hazelcast
+    enableHibernateCache true
+    entitySuffix false
+    dtoSuffix DTO
+    jhiPrefix jhi 
+    enableSwaggerCodegen true
+    serviceDiscoveryType eureka
+    messageBroker kafka
+    searchEngine false
+    serverPort 10500
+    testFrameworks []
+    skipClient true
+    skipServer false
+    skipUserManagement false
+  }
+
+  entities all
+}
+
+entity Dummy (dummies) {
+  name String
+}
+
+dto all with mapstruct
+service all with serviceClass
+noFluentMethod all
+
