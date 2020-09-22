@@ -1,0 +1,11 @@
+insert into book (name) values ('test1');
+insert into book (name) values ('test2');
+insert into book (name) values ('test3');
+insert into book (name) values ('test8');
+
+select * from book;
+select * from book where name = 'test1';
+
+update book
+set name = 'test5'
+where name = 'test2'
