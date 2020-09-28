@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/membertest
+    username: root
+    password: secret
+
+    jpa:
+      hibernate:
+        # For spring-data-jpa initialization strategy:
+        # @see https://pravusid.kr/java/2018/10/10/spring-database-initialization.html
+        ddl-auto: create-drop

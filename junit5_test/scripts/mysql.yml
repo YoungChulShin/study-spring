@@ -1,0 +1,10 @@
+version: '2'
+services:
+  point-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=membertest
+    ports:
+      - 3306:3306
