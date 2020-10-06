@@ -1,18 +1,17 @@
 package study.srpgin.junit5_test;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.srpgin.junit5_test.commands.MemberSaveCommand;
+import study.srpgin.junit5_test.composed.IntegrationTest;
 
 import java.util.Optional;
 
-@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@IntegrationTest
 @DisplayName("MemberService 클래스")
 class MemberServiceTest {
 
@@ -26,17 +25,20 @@ class MemberServiceTest {
         instance = new MemberService(memberRepository);
     }
 
+    @Test
+    public void TestSuccess() {
+        Assertions.assertThat(1).isEqualTo(1);
+    }
+
     @Nested
     @DisplayName("Save 메서드는")
     class Save {
 
         @Nested
-        @SpringBootTest
         @DisplayName("올바른 입력이 주어졌을 때")
         class validInput {
 
             @Test
-            @Transactional
             @DisplayName("성공적으로 값을 저장한다")
             void shouldSuccess() {
                 // given
