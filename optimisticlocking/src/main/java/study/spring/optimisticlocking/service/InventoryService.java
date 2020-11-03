@@ -15,11 +15,13 @@ public class InventoryService {
 
     @Transactional(readOnly = true)
     public void incrementProductAmount(String itemId, int amount) {
+        log.info("incrementProductAmount start : thread - " + Thread.currentThread().getId());
         try {
             itemService.incrementAmount(itemId, amount);
         } catch (ObjectOptimisticLockingFailureException e) {
-            log.warn("Somebody has already updated the amount for item:{} in concurrent transaction. Will try again...", itemId);
-            itemService.incrementAmount(itemId, amount);
+            log.info("Error catch : thread - " + Thread.currentThread().getId());
         }
+
+        log.info("incrementProductAmount end : thread - " + Thread.currentThread().getId());
     }
 }
