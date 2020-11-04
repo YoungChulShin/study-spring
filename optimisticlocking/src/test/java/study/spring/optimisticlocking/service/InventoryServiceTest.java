@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.transaction.annotation.Transactional;
 import study.spring.optimisticlocking.domain.Item;
 import study.spring.optimisticlocking.domain.ItemRepository;
 
@@ -67,8 +68,8 @@ class InventoryServiceTest {
             executor.execute(() -> inventoryService.incrementProductAmount(srcItem.getId(), amount));
         }
 
+        executor.awaitTermination(5, TimeUnit.SECONDS);
         executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.MINUTES);
 
         // then
         final Item item = itemRepository.findById(srcItem.getId()).get();
@@ -79,5 +80,4 @@ class InventoryServiceTest {
                 () -> verify(itemService, times(3)).incrementAmount(anyString(), anyInt())
         );
     }
-
 }

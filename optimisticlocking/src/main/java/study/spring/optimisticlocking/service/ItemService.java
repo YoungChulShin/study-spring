@@ -18,7 +18,6 @@ import javax.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 @Slf4j
 public class ItemService {
-
     private final ItemRepository itemRepository;
 
     @Async
