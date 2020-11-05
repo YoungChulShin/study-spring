@@ -1,0 +1,3 @@
+interceptor:
+  log:
+    exclude-methods: OPTIONS,HEAD,CONNECT,TRACE
