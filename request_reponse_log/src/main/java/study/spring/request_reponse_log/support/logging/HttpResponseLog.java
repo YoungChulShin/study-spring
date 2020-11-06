@@ -1,13 +1,16 @@
 package study.spring.request_reponse_log.support.logging;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import study.spring.request_reponse_log.support.servlet.BufferedResponseWrapper;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,7 +27,9 @@ public class HttpResponseLog {
     public static HttpResponseLog createFrom(HttpServletResponse response) {
         HttpStatus status = HttpStatus.valueOf(response.getStatus());
         HttpHeaders headers = getResponseHeaders(response);
+        JsonNode body = getResponseBody(response);
 
+        return new HttpResponseLog(status, headers, body);
     }
 
     private static HttpHeaders getResponseHeaders(HttpServletResponse response) {
@@ -40,12 +45,16 @@ public class HttpResponseLog {
         JsonNode body = null;
 
         try {
-            String json = IOUtils.toString(response.get, response.getCharacterEncoding());
+            String json = IOUtils.toString(
+                    ((BufferedResponseWrapper)response).getContentInputStream(),
+                    response.getCharacterEncoding());
+
+            if (StringUtils.isNotEmpty(json)) {
+                body = (new ObjectMapper()).readTree(json);
+            }
         } catch (IOException e) {
-
+            // do nothing
         }
-
-
         return body;
     }
 }
