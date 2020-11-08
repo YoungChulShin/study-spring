@@ -19,9 +19,4 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(auditLogInterceptor)
                 .addPathPatterns("/**");
     }
-
-    @Bean
-    public FilterRegistrationBean cacheServletRequestFilter() {
-        CacheServletFilter cacheServletFilter = new CacheServletFilter();
-    }
 }
