@@ -26,7 +26,6 @@ public class HttpResponseLog {
         HttpHeaders headers = getResponseHeaders(response);
 
     }
-
     private static HttpHeaders getResponseHeaders(HttpServletResponse response) {
         HttpHeaders headers = new HttpHeaders();
         for (String headerName : response.getHeaderNames()) {
@@ -40,12 +39,12 @@ public class HttpResponseLog {
         JsonNode body = null;
 
         try {
+            // HttpServeletResponse로 InputStream을 만들 수 없으니까
+            //
             String json = IOUtils.toString(response.get, response.getCharacterEncoding());
         } catch (IOException e) {
 
         }
-
-
         return body;
     }
 }
