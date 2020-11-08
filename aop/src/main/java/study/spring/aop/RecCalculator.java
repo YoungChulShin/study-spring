@@ -1,5 +1,8 @@
 package study.spring.aop;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RecCalculator implements Calculator {
     @Override
     public long factorial(long num) {
