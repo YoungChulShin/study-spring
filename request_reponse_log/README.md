@@ -8,3 +8,5 @@ HTTP Request와 Response 로그를 출력해보자.
 
 ### 기타 참고
 Resttemplate의 Request Logging: https://www.baeldung.com/spring-resttemplate-logging
+
+Spring MVC Logging: https://www.baeldung.com/spring-mvc-handlerinterceptor
