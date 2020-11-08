@@ -11,11 +11,15 @@ public class AppRunner implements ApplicationRunner {
     @Autowired
     private Calculator cal;
 
+    @Autowired
+    private DataSender dataSender;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        cal.factorial(5);
-        cal.factorial(5);
-        cal.factorial(7);
-        cal.factorial(7);
+//        cal.factorial(5);
+//        cal.factorial(5);
+//        cal.factorial(7);
+//        cal.factorial(7);
+        dataSender.send("test");
     }
 }
