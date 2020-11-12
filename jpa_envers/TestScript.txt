@@ -1,0 +1,8 @@
+// 생성
+curl -d '{"name":"ycshin", "age":"20", "phone":"01099999999"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/member
+
+// 수정
+curl -d '{"name":"ycshin2", "age":"21", "phone":"01088888888"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/api/member/1
+
+// 조회
+curl -H "Content-Type: application/json" -X GET http://localhost:8080/api/member/1
