@@ -23,9 +23,15 @@ public class TeamService {
         Team savedTeam = teamRepository.save(team);
         log.info("TeamService - end save");
 
-        if (1 == 1) {
-            throw new RuntimeException("test Exception");
-        }
+        return savedTeam.getId();
+    }
+
+    @Transactional
+    public Long saveOneSync(String name) {
+        log.info("TeamService - start save");
+        Team team = Team.create(name);
+        Team savedTeam = teamRepository.save(team);
+        log.info("TeamService - end save");
 
         return savedTeam.getId();
     }

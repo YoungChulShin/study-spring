@@ -1,0 +1,1 @@
+curl -d '{"name":"ycshin", "teamName":"myTeam"}' -H "Content-Type: application/json" -X POST http://localhost:8080/memberEvent

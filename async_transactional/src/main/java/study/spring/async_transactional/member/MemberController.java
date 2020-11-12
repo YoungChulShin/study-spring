@@ -19,4 +19,11 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedId);
     }
+
+    @PostMapping("memberEvent")
+    public ResponseEntity createMemberWithEvent(@RequestBody MemberCreateDto dto) {
+        Long savedId = memberService.saveOneWithEvent(dto.getName(), dto.getTeamName());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedId);
+    }
 }
