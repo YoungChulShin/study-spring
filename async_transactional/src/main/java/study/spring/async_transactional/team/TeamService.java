@@ -16,7 +16,7 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-    @Async
+    @Transactional
     public Long saveOne(String name) {
         log.info("TeamService - start save");
         Team team = Team.create(name);

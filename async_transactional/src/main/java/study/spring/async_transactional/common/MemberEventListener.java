@@ -18,42 +18,14 @@ public class MemberEventListener {
 
     private final TeamService teamService;
 
-//    @Async
-//    @Transactional
-//    @EventListener
-//    public void handlerMemberCreatedEventNormal(MemberCreatedEvent memberCreatedEvent) {
-//
-//        log.info("handlerMemberCreatedEventNormal - Start : " + Thread.currentThread().getId());
-//
-//        Long savedTeam = teamService.saveOneSync(memberCreatedEvent.getTeamName());
-//        log.info("handlerMemberCreatedEventNormal - Team created");
-//
-//        for (long i = 1; i <= 1000000000; i++) {
-//
-//        }
-//
-//        for (long i = 1; i <= 1000000000; i++) {
-//
-//        }
-//
-//        for (long i = 1; i <= 1000000000; i++) {
-//
-//        }
-//
-//        for (long i = 1; i <= 1000000000; i++) {
-//
-//        }
-//    }
-
     @Async
-    //@Transactional
-    @TransactionalEventListener
-    public void handlerMemberCreatedEventTransactional(MemberCreatedEvent memberCreatedEvent) {
+    @EventListener
+    public void handlerMemberCreatedEventNormal(MemberCreatedEvent memberCreatedEvent) {
 
-        log.info("handlerMemberCreatedEventTransactional - Start : " + Thread.currentThread().getId());
+        log.info("handlerMemberCreatedEventNormal - Start : " + Thread.currentThread().getId());
 
         Long savedTeam = teamService.saveOneSync(memberCreatedEvent.getTeamName());
-        log.info("handlerMemberCreatedEventTransactional - Team created");
+        log.info("handlerMemberCreatedEventNormal - Team created");
 
         for (long i = 1; i <= 1000000000; i++) {
 
@@ -71,11 +43,44 @@ public class MemberEventListener {
 
         }
 
-        if (1 == 1) {
-            throw new RuntimeException("test");
+        if (1==1) {
+            throw new RuntimeException();
         }
+
 
     }
+//
+//    @Async
+//    //@Transactional
+//    @TransactionalEventListener
+//    public void handlerMemberCreatedEventTransactional(MemberCreatedEvent memberCreatedEvent) {
+//
+//        log.info("handlerMemberCreatedEventTransactional - Start : " + Thread.currentThread().getId());
+//
+//        Long savedTeam = teamService.saveOneSync(memberCreatedEvent.getTeamName());
+//        log.info("handlerMemberCreatedEventTransactional - Team created");
+//
+//        for (long i = 1; i <= 1000000000; i++) {
+//
+//        }
+//
+//        for (long i = 1; i <= 1000000000; i++) {
+//
+//        }
+//
+//        for (long i = 1; i <= 1000000000; i++) {
+//
+//        }
+//
+//        for (long i = 1; i <= 1000000000; i++) {
+//
+//        }
+//
+//        if (1 == 1) {
+//            throw new RuntimeException(`"test");
+//        }
+//
+//    }
 
 //    @Async
 //    @EventListener

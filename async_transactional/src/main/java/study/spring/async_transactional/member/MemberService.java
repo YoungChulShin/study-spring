@@ -9,7 +9,6 @@ import study.spring.async_transactional.common.MemberCreatedEvent;
 import study.spring.async_transactional.team.TeamService;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService {
@@ -19,7 +18,6 @@ public class MemberService {
 
     private final ApplicationEventPublisher eventPublisher;
 
-    @Transactional
     public Long saveOne(String name, String teamName) {
 
         log.info("MemberService - start save");
@@ -27,8 +25,8 @@ public class MemberService {
         Member savedMember = memberRepository.save(member);
         log.info("MemberService - end save");
 
-        teamService.saveOne(teamName);
-        log.info("MemberService - call save");
+        memberRepository.findById(1L);
+
         return savedMember.getId();
     }
 
@@ -39,6 +37,9 @@ public class MemberService {
         Member member = Member.create(name);
         Member savedMember = memberRepository.save(member);
         log.info("MemberService - end save : " + Thread.currentThread().getId());
+
+        if (1 == 1)
+
 
         log.info("Event - call start : " + Thread.currentThread().getId());
         eventPublisher.publishEvent(new MemberCreatedEvent(savedMember.getId(), teamName));
