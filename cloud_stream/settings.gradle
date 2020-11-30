@@ -1,0 +1,4 @@
+rootProject.name = 'cloud_stream'
+include 'message_sender'
+include 'message_receiver'
+
