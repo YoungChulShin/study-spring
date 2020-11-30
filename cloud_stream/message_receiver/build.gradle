@@ -1,14 +1,4 @@
-plugins {
-    id 'java'
-}
-
-group 'study.spring'
-version '0.0.1-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
+    compile "org.springframework.cloud:spring-cloud-stream-binder-kafka:${spring_cloud_version}"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

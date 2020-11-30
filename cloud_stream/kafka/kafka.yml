@@ -15,5 +15,5 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "test:1:1" # Topic명:Partition개수:Replica개수
+      KAFKA_CREATE_TOPICS: "test-message-stream:1:1" # Topic명:Partition개수:Replica개수
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
