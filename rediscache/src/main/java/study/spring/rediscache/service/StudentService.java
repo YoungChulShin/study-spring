@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.rediscache.domain.Student;
-import study.spring.rediscache.domain.StudentRepository;
+import study.spring.rediscache.infra.StudentRepository;
 
 @Service
 @Transactional(readOnly = true)

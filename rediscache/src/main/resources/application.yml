@@ -6,11 +6,17 @@ spring:
     url: jdbc:mysql://localhost:3306/rediscache
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
 
 logging:
   level:
