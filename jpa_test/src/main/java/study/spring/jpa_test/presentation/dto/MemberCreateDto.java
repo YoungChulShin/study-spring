@@ -1,11 +1,19 @@
 package study.spring.jpa_test.presentation.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Getter
+@AllArgsConstructor
 public class MemberCreateDto {
 
-    private String name;
+    @NotNull
+    public String name;
 
-    private Long teamId;
+    public Long teamId;
 }

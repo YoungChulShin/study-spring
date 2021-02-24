@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import study.spring.jpa_test.application.MemberService;
 import study.spring.jpa_test.presentation.dto.MemberCreateDto;
 
+import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -17,7 +19,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/member")
-    public ResponseEntity create(@RequestBody MemberCreateDto dto) {
+    public ResponseEntity create(@Valid @RequestBody MemberCreateDto dto) {
         Long savedId = memberService.save(dto.getName(), dto.getTeamId());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedId);
