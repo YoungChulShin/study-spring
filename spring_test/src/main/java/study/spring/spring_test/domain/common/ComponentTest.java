@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Getter
 public class ComponentTest {
 
-  @Value("${myValue.value1}")
   private String testValue;
 
-//  public ComponentTest(@Value("${myValue.value1}") String testValue) {
-//    this.testValue = testValue;
-//  }
+  public ComponentTest(@Value("${myValue.value1}") String testValue) {
+    this.testValue = testValue;
+  }
 }
