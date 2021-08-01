@@ -1,5 +1,6 @@
 package study.spring.jpa_test.application;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -58,6 +59,16 @@ public class TeamService {
 
 
         return true;
+    }
+
+    @Transactional
+    public void updateStadium(Long teamId, String name, String location) {
+        Optional<Team> team = teamRepository.findById(teamId);
+        if (!team.isPresent()) {
+            return;
+        }
+
+        team.get().AddStadium(name, location);
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
