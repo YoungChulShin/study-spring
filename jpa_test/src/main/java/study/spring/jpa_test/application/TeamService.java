@@ -16,6 +16,7 @@ import study.spring.jpa_test.domain.TeamRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import study.spring.jpa_test.domain.TeamStadium;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +28,9 @@ public class TeamService {
 
     @Transactional
     public Long save(String name) {
-        Team savedTeam = teamRepository.save(Team.create(name));
-        return savedTeam.getId();
+        Team team = Team.create(name);
+        teamRepository.save(team);
+        return team.getId();
     }
 
     @Transactional
@@ -68,7 +70,8 @@ public class TeamService {
             return;
         }
 
-        team.get().AddStadium(name, location);
+        TeamStadium stadium = new TeamStadium(name, location);
+        team.get().AddStadium(stadium);
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

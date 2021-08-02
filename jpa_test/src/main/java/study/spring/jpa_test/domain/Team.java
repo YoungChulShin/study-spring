@@ -21,29 +21,35 @@ public class Team {
 
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = "team",
+        cascade = CascadeType.PERSIST,
+        orphanRemoval = true)
     private List<Member> members = new ArrayList<>();
-    
-    @ElementCollection
-    @CollectionTable(
-        name = "team_stadium",
-        joinColumns = @JoinColumn(name = "team_id"))
-    private List<TeamStadium> teamStadiums = Collections.emptyList();
+    @OneToMany(
+        mappedBy = "team",
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.PERSIST,
+        orphanRemoval = true)
+    private List<TeamStadium> teamStadiums = new ArrayList<>();
 
     @Version
     private int version;
+
+
     public static Team create(String name) {
         Team team = new Team();
         team.name = name;
-
         return team;
     }
 
-    public void AddStadium(String name, String location) {
+    public void AddStadium(TeamStadium teamStadium) {
+        teamStadium.updateTeam(this);
         if (this.teamStadiums.isEmpty()) {
-            this.teamStadiums.add(new TeamStadium(name, location));
+            this.teamStadiums.add(teamStadium);
         } else {
-            this.teamStadiums.set(0, new TeamStadium(name, location));
+            this.teamStadiums.set(0, teamStadium);
         }
     }
 
