@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
   @GetMapping("/greeting/hello/{name}")
-  public String hello(@PathVariable(value = "name") String name) {
+  public String hello(@PathVariable(value = "name") String name) throws InterruptedException {
+    //Thread.sleep(10000);
     return "hello, " + name;
   }
 }
