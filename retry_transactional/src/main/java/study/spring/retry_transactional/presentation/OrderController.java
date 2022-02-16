@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import study.spring.retry_transactional.application.OrderFacade;
@@ -24,5 +25,12 @@ public class OrderController {
   @PostMapping("/api/orders")
   public Long registerOrder(@Valid @RequestBody RegisterOrderRequest request) {
     return orderFacade.registerOrder(request.getOrderNumber());
+  }
+
+  @PutMapping("/api/orders/{orderId}/update-order-number")
+  public OrderInfo updateOrderNumber(
+      @PathVariable(name = "orderId") Long orderId,
+      @Valid @RequestBody UpdateOrderNumberRequest request) {
+    return orderFacade.updateOrderNumber(orderId, request.getOrderNumber());
   }
 }

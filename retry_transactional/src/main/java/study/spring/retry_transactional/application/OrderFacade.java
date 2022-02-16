@@ -21,4 +21,9 @@ public class OrderFacade {
   public OrderInfo getOrder(Long orderId) {
     return orderService.getOrder(orderId);
   }
+
+  @Transactional
+  public OrderInfo updateOrderNumber(Long orderId, String orderNumber) {
+    return orderService.updateOrderNumber(orderId, orderNumber);
+  }
 }

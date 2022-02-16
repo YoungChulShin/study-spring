@@ -8,8 +8,8 @@ public class OrderInfo {
   private String orderNumber;
   private int version;
 
-  public OrderInfo(String orderNumber, int version) {
-    this.orderNumber = orderNumber;
-    this.version = version;
+  public OrderInfo(Order order) {
+    this.orderNumber = order.getOrderNumber();
+    this.version = order.getVersion();
   }
 }

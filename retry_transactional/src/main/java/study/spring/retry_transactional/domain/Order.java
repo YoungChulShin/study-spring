@@ -28,4 +28,12 @@ public class Order {
   public Order(String orderNumber) {
     this.orderNumber = orderNumber;
   }
+
+  public void updateOrderNumber(String orderNumber) {
+    if (orderNumber == null || orderNumber.length() == 0) {
+      throw new IllegalArgumentException("orderNumber");
+    }
+
+    this.orderNumber = orderNumber;
+  }
 }

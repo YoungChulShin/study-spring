@@ -12,7 +12,7 @@ public class OrderService {
 
   public OrderInfo getOrder(Long orderId) {
     Order order = orderReader.getOrder(orderId);
-    return new OrderInfo(order.getOrderNumber(), order.getVersion());
+    return new OrderInfo(order);
   }
 
   public Long registerOrder(String orderNumber) {
@@ -20,5 +20,12 @@ public class OrderService {
     Order order = orderStore.registerOrder(initOrder);
 
     return order.getId();
+  }
+
+  public OrderInfo updateOrderNumber(Long orderId, String orderNumber) {
+    Order order = orderReader.getOrder(orderId);
+    order.updateOrderNumber(orderNumber);
+
+    return new OrderInfo(order);
   }
 }
