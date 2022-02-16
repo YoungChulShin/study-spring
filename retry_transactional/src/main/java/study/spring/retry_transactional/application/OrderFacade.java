@@ -1,6 +1,8 @@
 package study.spring.retry_transactional.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.retry_transactional.domain.OrderInfo;
@@ -23,6 +25,7 @@ public class OrderFacade {
   }
 
   @Transactional
+  @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 2)
   public OrderInfo updateOrderNumber(Long orderId, String orderNumber) {
     return orderService.updateOrderNumber(orderId, orderNumber);
   }

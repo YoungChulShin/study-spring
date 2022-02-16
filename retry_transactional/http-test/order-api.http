@@ -14,5 +14,5 @@ PUT http://localhost:5001/api/orders/2/update-order-number
 Content-Type: application/json
 
 {
-  "orderNumber" : "1-3"
+  "orderNumber" : "1-6"
 }
