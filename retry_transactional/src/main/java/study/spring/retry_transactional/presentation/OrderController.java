@@ -16,12 +16,12 @@ public class OrderController {
 
   private final OrderFacade orderFacade;
 
-  @GetMapping("/orders/{orderId}")
+  @GetMapping("/api/orders/{orderId}")
   public OrderInfo getOrder(@PathVariable(name = "orderId") Long orderId) {
     return orderFacade.getOrder(orderId);
   }
 
-  @PostMapping("/orders")
+  @PostMapping("/api/orders")
   public Long registerOrder(@Valid @RequestBody RegisterOrderRequest request) {
     return orderFacade.registerOrder(request.getOrderNumber());
   }
