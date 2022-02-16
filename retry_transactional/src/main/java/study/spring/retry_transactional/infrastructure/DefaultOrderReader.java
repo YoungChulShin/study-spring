@@ -13,7 +13,6 @@ public class DefaultOrderReader implements OrderReader {
 
   @Override
   public Order getOrder(Long orderId) {
-    return orderRepository.findById(orderId)
-        .orElseThrow(IllegalArgumentException::new);
+    return orderRepository.findOne(orderId);
   }
 }

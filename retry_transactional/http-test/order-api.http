@@ -10,9 +10,9 @@ Content-Type: application/json
 GET http://localhost:5001/api/orders/2
 
 ### 오더 번호 업데이트
-PUT http://localhost:5001/api/orders/2/update-order-number
+PUT http://localhost:5001/api/orders/1/update-order-number
 Content-Type: application/json
 
 {
-  "orderNumber" : "1-6"
+  "orderNumber" : "1-5"
 }
