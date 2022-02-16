@@ -10,11 +10,12 @@ public class OrderService {
   private final OrderReader orderReader;
   private final OrderStore orderStore;
 
-  public Order getOrder(Long orderId) {
-    return orderReader.getOrder(orderId);
+  public OrderInfo getOrder(Long orderId) {
+    Order order = orderReader.getOrder(orderId);
+    return new OrderInfo(order.getOrderNumber(), order.getVersion());
   }
 
-  public Long createOrder(String orderNumber) {
+  public Long registerOrder(String orderNumber) {
     Order initOrder = new Order(orderNumber);
     Order order = orderStore.registerOrder(initOrder);
 
