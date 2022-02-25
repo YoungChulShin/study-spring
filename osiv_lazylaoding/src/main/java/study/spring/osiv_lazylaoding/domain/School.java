@@ -10,10 +10,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "student")
+@Table(name = "school")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Student {
+public class School {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,7 @@ public class Student {
 
   private String name;
 
-  private Long age;
-
-  public Student(String name, Long age) {
+  public School(String name) {
     this.name = name;
-    this.age = age;
   }
 }
