@@ -30,6 +30,7 @@ public class StudentService {
     return student.getId();
   }
 
+  @Transactional(readOnly = true)
   public StudentInfo findStudent(Long studentId) {
     Student student = studentRepository.findById(studentId)
         .orElse(null);

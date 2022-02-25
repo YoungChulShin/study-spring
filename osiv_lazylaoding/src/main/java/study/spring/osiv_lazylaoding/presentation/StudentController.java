@@ -24,7 +24,7 @@ public class StudentController {
     return studentService.createStudent(new CreateStudentCommand(
         request.getName(),
         request.getAge(),
-        request.getStudentName()));
+        request.getSchoolName()));
   }
 
   @GetMapping("/api/students/{id}")

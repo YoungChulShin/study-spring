@@ -1,0 +1,20 @@
+### 학교 생성
+POST http://localhost:5001/api/school
+content-type: application/json
+
+{
+  "name": "hangkong"
+}
+
+### 학생 생성
+POST http://localhost:5001/api/student
+content-type: application/json
+
+{
+  "name": "ycshin",
+  "age": 39,
+  "schoolName": "hangkong"
+}
+
+### 학생 조회
+GET http://localhost:5001/api/students/1

@@ -12,5 +12,5 @@ public class CreateStudentRequest {
   @Min(1)
   private Long age;
   @NotBlank
-  private String studentName;
+  private String schoolName;
 }
