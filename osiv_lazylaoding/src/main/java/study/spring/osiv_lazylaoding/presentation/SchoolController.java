@@ -15,7 +15,7 @@ public class SchoolController {
 
   private final SchoolService schoolService;
 
-  @PostMapping("/api/student")
+  @PostMapping("/api/school")
   public Long createSchool(@RequestBody @Valid CreateSchoolRequest request) {
     return schoolService.createSchool(new CreateSchoolCommand(request.getName()));
   }

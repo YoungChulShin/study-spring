@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_DATABASE=metabus
+      - MYSQL_ROOT_PASSWORD=root-pass
+      - MYSQL_USER=svc
+      - MYSQL_PASSWORD=svc-pass
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
