@@ -9,6 +9,7 @@ import javax.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.spring.retry_transactional.infrastructure.OrderRepository;
 
 @Getter
 @Entity
