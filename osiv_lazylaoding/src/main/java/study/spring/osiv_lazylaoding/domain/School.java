@@ -2,6 +2,7 @@ package study.spring.osiv_lazylaoding.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class School {
 
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "school", cascade = CascadeType.PERSIST)
   private List<Student> students = new ArrayList<>();
 
   public School(String name) {
@@ -34,5 +35,6 @@ public class School {
 
   public void registerStudent(Student student) {
     this.students.add(student);
+    student.registerSchool(this);
   }
 }

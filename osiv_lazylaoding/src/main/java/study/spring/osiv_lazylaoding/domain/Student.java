@@ -1,6 +1,5 @@
 package study.spring.osiv_lazylaoding.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,17 +26,20 @@ public class Student {
 
   private Long age;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id")
   private School school;
+
+  public String getSchoolName() {
+    return school.getName();
+  }
 
   public Student(String name, Long age) {
     this.name = name;
     this.age = age;
   }
 
-  public void registerSchool(School school) {
+  void registerSchool(School school) {
     this.school = school;
-    school.registerStudent(this);
   }
 }
