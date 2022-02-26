@@ -2,6 +2,8 @@ package study.spring.osiv_lazylaoding.application;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.osiv_lazylaoding.application.model.CreateStudentCommand;
@@ -17,6 +19,10 @@ public class StudentService {
 
   private final StudentRepository studentRepository;
   private final SchoolRepository schoolRepository;
+
+  @Lazy
+  @Autowired
+  private StudentService self;
 
   @Transactional
   public Long createStudent(CreateStudentCommand command) {
@@ -35,8 +41,22 @@ public class StudentService {
     Student student = studentRepository.findById(studentId)
         .orElse(null);
 
+    // self.selfTestMethod(studentId, student);
+
     return student != null
         ? new StudentInfo(student.getName(), student.getAge(), student.getSchoolName())
+        : null;
+  }
+
+  @Transactional
+  public StudentInfo selfTestMethod(Long studentId, Student student) {
+    Student selfStudent = studentRepository.findById(studentId)
+        .orElse(null);
+
+    studentRepository.save(selfStudent);
+
+    return selfStudent != null
+        ? new StudentInfo(selfStudent.getName(), selfStudent.getAge(), selfStudent.getSchoolName())
         : null;
   }
 }
