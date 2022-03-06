@@ -42,4 +42,8 @@ public class Student {
   void registerSchool(School school) {
     this.school = school;
   }
+
+  public void updateName(String newName) {
+    this.name = newName;
+  }
 }

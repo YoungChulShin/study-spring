@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.osiv_lazylaoding.application.model.CreateStudentCommand;
 import study.spring.osiv_lazylaoding.application.model.StudentInfo;
@@ -41,22 +42,20 @@ public class StudentService {
     Student student = studentRepository.findById(studentId)
         .orElse(null);
 
-    // self.selfTestMethod(studentId, student);
+    Student student1 = self.selfTestMethod(studentId, student);
+    student1.getSchoolName();
+    student1.updateName("testName");
 
     return student != null
         ? new StudentInfo(student.getName(), student.getAge(), student.getSchoolName())
         : null;
   }
 
-  @Transactional
-  public StudentInfo selfTestMethod(Long studentId, Student student) {
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public Student selfTestMethod(Long studentId, Student student) {
     Student selfStudent = studentRepository.findById(studentId)
         .orElse(null);
 
-    studentRepository.save(selfStudent);
-
-    return selfStudent != null
-        ? new StudentInfo(selfStudent.getName(), selfStudent.getAge(), selfStudent.getSchoolName())
-        : null;
+    return student;
   }
 }
