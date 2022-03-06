@@ -13,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @Table(name = "agents")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,7 +46,7 @@ public class Agent {
 
   public void updateLocation(double longitude, double latitude) {
     if (this.location == null) {
-
+      this.location = new AgentLocation(longitude, latitude);
     } else {
       this.location.updateLocation(longitude, latitude);
     }
@@ -56,6 +58,11 @@ public class Agent {
 
   public void updateAge(int age) {
     this.age = age;
+  }
+
+  public int delivery() {
+    this.deliverySum += 1;
+    return this.deliverySum;
   }
 
   @Embeddable
