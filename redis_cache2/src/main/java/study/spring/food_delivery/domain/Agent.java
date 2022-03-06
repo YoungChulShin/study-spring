@@ -65,6 +65,7 @@ public class Agent {
     return this.deliverySum;
   }
 
+  @Getter
   @Embeddable
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class AgentId implements Serializable {
