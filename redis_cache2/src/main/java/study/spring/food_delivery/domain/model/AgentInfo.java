@@ -1,6 +1,7 @@
 package study.spring.food_delivery.domain.model;
 
 import lombok.Getter;
+import study.spring.food_delivery.domain.Agent;
 import study.spring.food_delivery.domain.Agent.AgentId;
 
 @Getter
@@ -16,5 +17,13 @@ public class AgentInfo {
     this.name = name;
     this.age = age;
     this.deliverySum = deliverySum;
+  }
+
+  public static AgentInfo from(Agent agent) {
+    return new AgentInfo(
+        agent.getId(),
+        agent.getName(),
+        agent.getAge(),
+        agent.getDeliverySum());
   }
 }

@@ -8,18 +8,21 @@ public class UpdateAgentCommand {
 
   private final AgentId id;
   private final String name;
-  private final int age;
+  private final Integer age;
 
-  public UpdateAgentCommand(AgentId id, String name, int age) {
+  public UpdateAgentCommand(AgentId id, String name, Integer age) {
     if (id == null) {
       throw new IllegalArgumentException("id");
     }
-    if ((name == null || name.length() == 0) && age <= 0) {
+    if (age != null && age <= 0) {
+      throw new IllegalArgumentException("age");
+    }
+    if ((name == null || name.trim().length() == 0) && age == null) {
       throw new IllegalArgumentException("name, age");
     }
 
     this.id = id;
-    this.name = name;
+    this.name = (name != null) ? name.trim() : null;
     this.age = age;
   }
 }
