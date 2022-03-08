@@ -1,14 +1,13 @@
 package study.spring.food_delivery.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -52,7 +51,7 @@ public class Agent {
     }
   }
 
-  public void updateNmae(String name) {
+  public void updateName(String name) {
     this.name = name;
   }
 
@@ -66,16 +65,32 @@ public class Agent {
   }
 
   @Getter
-  @Embeddable
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class AgentId implements Serializable {
 
-    @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public AgentId(Long id) {
       this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      AgentId agentId = (AgentId) o;
+      return Objects.equals(id, agentId.id);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(id);
     }
   }
 }

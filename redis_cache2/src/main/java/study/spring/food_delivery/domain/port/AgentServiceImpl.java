@@ -43,7 +43,7 @@ public class AgentServiceImpl implements AgentService {
     Agent agent = agentReader.getAgent(command.getId());
 
     if (command.getName() != null && command.getName().length() > 0) {
-      agent.updateNmae(command.getName());
+      agent.updateName(command.getName());
     }
     if (command.getAge() != null) {
       agent.updateAge(command.getAge());
