@@ -1,0 +1,14 @@
+server:
+  port: 5000
+  shutdown: graceful
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root-pass
+    url: jdbc:mysql://localhost:3306/mydb?serverTimeZone=UTC&characterEncoding=UTF-8
