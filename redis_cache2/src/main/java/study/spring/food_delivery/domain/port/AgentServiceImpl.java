@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.food_delivery.domain.Agent;
-import study.spring.food_delivery.domain.Agent.AgentId;
 import study.spring.food_delivery.domain.model.AgentInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
@@ -22,7 +21,7 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   @Transactional
-  public AgentId registerAgent(RegisterAgentCommand command) {
+  public Long registerAgent(RegisterAgentCommand command) {
     Agent initAgent = new Agent(command.getName(), command.getAge());
     Agent agent = agentStore.saveAgent(initAgent);
 
@@ -31,7 +30,7 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   @Transactional(readOnly = true)
-  public AgentInfo getAgentInfo(AgentId agentId) {
+  public AgentInfo getAgentInfo(Long agentId) {
     Agent agent = agentReader.getAgent(agentId);
 
     return AgentInfo.from(agent);
@@ -54,7 +53,7 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   @Transactional
-  public long delivery(AgentId agentId) {
+  public long delivery(Long agentId) {
     Agent agent = agentReader.getAgent(agentId);
 
     return agent.delivery();
@@ -62,7 +61,7 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   @Transactional
-  public AgentId updateAgentLocation(UpdateAgentLocationCommand command) {
+  public Long updateAgentLocation(UpdateAgentLocationCommand command) {
     Agent agent = agentReader.getAgent(command.getId());
     agent.updateLocation(
         command.getLocation().getLongitude(),

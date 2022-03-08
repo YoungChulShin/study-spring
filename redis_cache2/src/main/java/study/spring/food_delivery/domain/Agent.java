@@ -1,13 +1,12 @@
 package study.spring.food_delivery.domain;
 
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,8 +20,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Agent {
 
-  @EmbeddedId
-  private AgentId id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Column(name = "name")
   private String name;
@@ -33,7 +33,7 @@ public class Agent {
   @Column(name = "delivery_sum")
   private int deliverySum;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "agent_location_id")
   private AgentLocation location;
 
@@ -41,6 +41,7 @@ public class Agent {
     this.name = name;
     this.age = age;
     this.deliverySum = 0;
+    this.location = new AgentLocation(null, null);
   }
 
   public void updateLocation(double longitude, double latitude) {
@@ -62,35 +63,5 @@ public class Agent {
   public int delivery() {
     this.deliverySum += 1;
     return this.deliverySum;
-  }
-
-  @Getter
-  @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class AgentId implements Serializable {
-
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    public AgentId(Long id) {
-      this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-      AgentId agentId = (AgentId) o;
-      return Objects.equals(id, agentId.id);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(id);
-    }
   }
 }

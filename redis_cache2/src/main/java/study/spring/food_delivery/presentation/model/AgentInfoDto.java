@@ -20,7 +20,7 @@ public class AgentInfoDto {
 
   public static AgentInfoDto from(AgentInfo agentInfo) {
     return new AgentInfoDto(
-        agentInfo.getId().getId(),
+        agentInfo.getId(),
         agentInfo.getName(),
         agentInfo.getAge(),
         agentInfo.getDeliverySum());

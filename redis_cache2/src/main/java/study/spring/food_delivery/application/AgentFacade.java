@@ -2,7 +2,6 @@ package study.spring.food_delivery.application;
 
 import lombok.RequiredArgsConstructor;
 import study.spring.food_delivery.common.Facade;
-import study.spring.food_delivery.domain.Agent.AgentId;
 import study.spring.food_delivery.domain.model.AgentInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
@@ -15,11 +14,11 @@ public class AgentFacade {
 
   private final AgentService agentService;
 
-  public AgentId registerAgent(RegisterAgentCommand command) {
+  public Long registerAgent(RegisterAgentCommand command) {
     return agentService.registerAgent(command);
   }
 
-  public AgentInfo getAgentInfo(AgentId agentId) {
+  public AgentInfo getAgentInfo(Long agentId) {
     return agentService.getAgentInfo(agentId);
   }
 
@@ -27,11 +26,11 @@ public class AgentFacade {
     return agentService.updateAgent(command);
   }
 
-  public long delivery(AgentId agentId) {
+  public long delivery(Long agentId) {
     return agentService.delivery(agentId);
   }
 
-  public AgentId updateAgentLocation(UpdateAgentLocationCommand command) {
+  public Long updateAgentLocation(UpdateAgentLocationCommand command) {
     return agentService.updateAgentLocation(command);
   }
 }

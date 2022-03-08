@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import study.spring.food_delivery.application.AgentFacade;
-import study.spring.food_delivery.domain.Agent.AgentId;
 import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.model.AgentInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
@@ -34,14 +33,14 @@ public class AgentController {
   @PostMapping("/api/v1/agents")
   public RegisterAgentResponse registerAgent(@RequestBody @Valid RegisterAgentRequest request) {
     RegisterAgentCommand command = new RegisterAgentCommand(request.getName(), request.getAge());
-    AgentId agentId = agentFacade.registerAgent(command);
+    Long agentId = agentFacade.registerAgent(command);
 
-    return new RegisterAgentResponse(agentId.getId());
+    return new RegisterAgentResponse(agentId);
   }
 
   @GetMapping("/api/v1/agents/{id}")
   public GetAgentResponse getAgent(@PathVariable Long id) {
-    AgentInfo agentInfo = agentFacade.getAgentInfo(new AgentId(id));
+    AgentInfo agentInfo = agentFacade.getAgentInfo(id);
 
     return new GetAgentResponse(AgentInfoDto.from(agentInfo));
   }
@@ -51,7 +50,7 @@ public class AgentController {
       @PathVariable Long id,
       @RequestBody @Valid UpdateAgentRequest request) {
     UpdateAgentCommand command = new UpdateAgentCommand(
-        new AgentId(id),
+        id,
         request.getName(),
         request.getAge());
     AgentInfo agentInfo = agentFacade.updateAgent(command);
@@ -61,7 +60,7 @@ public class AgentController {
 
   @PostMapping("/api/v1/agents/{id}/delivery")
   public DeliveryResponse delivery(@PathVariable Long id) {
-    long deliverySum = agentFacade.delivery(new AgentId(id));
+    long deliverySum = agentFacade.delivery(id);
 
     return new DeliveryResponse(deliverySum);
   }
@@ -72,10 +71,10 @@ public class AgentController {
       @RequestParam(name = "longitude") Double longitude,
       @RequestParam(name = "latitude") Double latitude) {
     UpdateAgentLocationCommand command = new UpdateAgentLocationCommand(
-        new AgentId(id),
+        id,
         new AgentLocation(longitude, latitude));
-    AgentId agentId = agentFacade.updateAgentLocation(command);
+    Long agentId = agentFacade.updateAgentLocation(command);
 
-    return new UpdateAgentLocationResponse(agentId.getId());
+    return new UpdateAgentLocationResponse(agentId);
   }
 }

@@ -1,16 +1,15 @@
 package study.spring.food_delivery.domain.model;
 
 import lombok.Getter;
-import study.spring.food_delivery.domain.Agent.AgentId;
 
 @Getter
 public class UpdateAgentCommand {
 
-  private final AgentId id;
+  private final Long id;
   private final String name;
   private final Integer age;
 
-  public UpdateAgentCommand(AgentId id, String name, Integer age) {
+  public UpdateAgentCommand(Long id, String name, Integer age) {
     if (id == null) {
       throw new IllegalArgumentException("id");
     }
