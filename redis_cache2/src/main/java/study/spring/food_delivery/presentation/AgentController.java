@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import study.spring.food_delivery.application.AgentFacade;
 import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.model.AgentInfo;
+import study.spring.food_delivery.domain.model.AgentLocationInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentLocationCommand;
 import study.spring.food_delivery.presentation.model.AgentInfoDto;
 import study.spring.food_delivery.presentation.model.DeliveryResponse;
+import study.spring.food_delivery.presentation.model.GetAgentLocationResponse;
 import study.spring.food_delivery.presentation.model.GetAgentResponse;
 import study.spring.food_delivery.presentation.model.RegisterAgentRequest;
 import study.spring.food_delivery.presentation.model.RegisterAgentResponse;
@@ -76,5 +78,15 @@ public class AgentController {
     Long agentId = agentFacade.updateAgentLocation(command);
 
     return new UpdateAgentLocationResponse(agentId);
+  }
+
+  @GetMapping("/api/v1/agents/{id}/location")
+  public GetAgentLocationResponse getAgentLocation(@PathVariable Long id) {
+    AgentLocationInfo agentLocation = agentFacade.getAgentLocation(id);
+
+    return new GetAgentLocationResponse(
+        id,
+        agentLocation.getLongitude(),
+        agentLocation.getLatitude());
   }
 }

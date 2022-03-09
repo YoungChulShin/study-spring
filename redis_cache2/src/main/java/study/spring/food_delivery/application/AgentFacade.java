@@ -3,6 +3,7 @@ package study.spring.food_delivery.application;
 import lombok.RequiredArgsConstructor;
 import study.spring.food_delivery.common.Facade;
 import study.spring.food_delivery.domain.model.AgentInfo;
+import study.spring.food_delivery.domain.model.AgentLocationInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentLocationCommand;
@@ -32,5 +33,9 @@ public class AgentFacade {
 
   public Long updateAgentLocation(UpdateAgentLocationCommand command) {
     return agentService.updateAgentLocation(command);
+  }
+
+  public AgentLocationInfo getAgentLocation(Long agentId) {
+    return agentService.getAgentLocation(agentId);
   }
 }

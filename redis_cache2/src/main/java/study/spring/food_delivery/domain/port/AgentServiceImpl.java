@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring.food_delivery.domain.Agent;
+import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.model.AgentInfo;
+import study.spring.food_delivery.domain.model.AgentLocationInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
 import study.spring.food_delivery.domain.model.UpdateAgentLocationCommand;
@@ -67,6 +69,20 @@ public class AgentServiceImpl implements AgentService {
         command.getLocation().getLongitude(),
         command.getLocation().getLatitude());
 
+    agentStore.saveAgentLocationToCache(
+        command.getId(),
+        agent.getLocation());
+
     return agent.getId();
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public AgentLocationInfo getAgentLocation(Long agentId) {
+    AgentLocation agentLocation = agentReader.getAgentLocation(agentId);
+    return new AgentLocationInfo(
+        agentId,
+        agentLocation.getLongitude(),
+        agentLocation.getLatitude());
   }
 }

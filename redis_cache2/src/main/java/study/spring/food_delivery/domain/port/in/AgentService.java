@@ -1,5 +1,6 @@
 package study.spring.food_delivery.domain.port.in;
 
+import study.spring.food_delivery.domain.model.AgentLocationInfo;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
 import study.spring.food_delivery.domain.model.AgentInfo;
 import study.spring.food_delivery.domain.model.RegisterAgentCommand;
@@ -16,4 +17,7 @@ public interface AgentService {
   long delivery(Long agentId);
 
   Long updateAgentLocation(UpdateAgentLocationCommand command);
+
+  AgentLocationInfo getAgentLocation(Long agentId);
+
 }
