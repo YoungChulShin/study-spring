@@ -31,12 +31,12 @@ public class AgentReaderImpl implements AgentReader {
 
   @Override
   public AgentLocation getAgentLocation(Long agentId) {
-    SetOperations<String, Double> setOperations = redisTemplate.opsForSet();
-    Set<Double> members = setOperations.members(KEY_AGENT_LOCATION + agentId);
-    if (members != null && !members.isEmpty()) {
-      Iterator<Double> iterator = members.iterator();
-      return new AgentLocation(iterator.next(), iterator.next());
-    }
+//    SetOperations<String, Double> setOperations = redisTemplate.opsForSet();
+//    Set<Double> members = setOperations.members(KEY_AGENT_LOCATION + agentId);
+//    if (members != null && !members.isEmpty()) {
+//      Iterator<Double> iterator = members.iterator();
+//      return new AgentLocation(iterator.next(), iterator.next());
+//    }
 
     Optional<AgentLocation> dbAgentLocation = agentLocationRepository.findById(agentId);
     return dbAgentLocation.map(

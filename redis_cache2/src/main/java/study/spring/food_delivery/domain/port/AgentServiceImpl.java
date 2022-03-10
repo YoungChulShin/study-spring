@@ -1,8 +1,11 @@
 package study.spring.food_delivery.domain.port;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.spring.food_delivery.common.RedisKey;
 import study.spring.food_delivery.domain.Agent;
 import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.model.AgentInfo;
@@ -63,21 +66,21 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   @Transactional
+  @CacheEvict(value = RedisKey.KEY_AGENT_LOCATION, key = "#command.id")
   public Long updateAgentLocation(UpdateAgentLocationCommand command) {
     Agent agent = agentReader.getAgent(command.getId());
     agent.updateLocation(
         command.getLocation().getLongitude(),
         command.getLocation().getLatitude());
 
-    agentStore.saveAgentLocationToCache(
-        command.getId(),
-        agent.getLocation());
-
     return agent.getId();
   }
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(
+      value = RedisKey.KEY_AGENT_LOCATION,
+      key = "#agentId")
   public AgentLocationInfo getAgentLocation(Long agentId) {
     AgentLocation agentLocation = agentReader.getAgentLocation(agentId);
     return new AgentLocationInfo(

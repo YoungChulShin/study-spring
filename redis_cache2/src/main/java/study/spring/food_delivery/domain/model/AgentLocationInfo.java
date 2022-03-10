@@ -1,10 +1,10 @@
 package study.spring.food_delivery.domain.model;
 
+import java.io.Serializable;
 import lombok.Getter;
-import study.spring.food_delivery.domain.AgentLocation;
 
 @Getter
-public class AgentLocationInfo {
+public class AgentLocationInfo implements Serializable {
 
   private final Long id;
   private final Double longitude;
