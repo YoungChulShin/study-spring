@@ -1,5 +1,6 @@
 package study.spring.food_delivery.application;
 
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import study.spring.food_delivery.common.Facade;
 import study.spring.food_delivery.domain.model.AgentInfo;
@@ -37,5 +38,9 @@ public class AgentFacade {
 
   public AgentLocationInfo getAgentLocation(Long agentId) {
     return agentService.getAgentLocation(agentId);
+  }
+
+  public Set<String> getDeliveryTopN(int n) {
+    return agentService.getDeliveryTopN(n);
   }
 }

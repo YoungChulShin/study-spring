@@ -20,6 +20,7 @@ import study.spring.food_delivery.presentation.model.AgentInfoDto;
 import study.spring.food_delivery.presentation.model.DeliveryResponse;
 import study.spring.food_delivery.presentation.model.GetAgentLocationResponse;
 import study.spring.food_delivery.presentation.model.GetAgentResponse;
+import study.spring.food_delivery.presentation.model.GetDeliveryScoreResponse;
 import study.spring.food_delivery.presentation.model.RegisterAgentRequest;
 import study.spring.food_delivery.presentation.model.RegisterAgentResponse;
 import study.spring.food_delivery.presentation.model.UpdateAgentLocationResponse;
@@ -88,5 +89,11 @@ public class AgentController {
         id,
         agentLocation.getLongitude(),
         agentLocation.getLatitude());
+  }
+
+  @GetMapping("/api/v1/agents/delivery-score")
+  public GetDeliveryScoreResponse getDeliveryScore() {
+    int topN = 5;
+    return new GetDeliveryScoreResponse(agentFacade.getDeliveryTopN(topN));
   }
 }

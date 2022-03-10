@@ -1,5 +1,6 @@
 package study.spring.food_delivery.domain.port.in;
 
+import java.util.Set;
 import study.spring.food_delivery.domain.model.AgentLocationInfo;
 import study.spring.food_delivery.domain.model.UpdateAgentCommand;
 import study.spring.food_delivery.domain.model.AgentInfo;
@@ -19,5 +20,7 @@ public interface AgentService {
   Long updateAgentLocation(UpdateAgentLocationCommand command);
 
   AgentLocationInfo getAgentLocation(Long agentId);
+
+  Set<String> getDeliveryTopN(int n);
 
 }

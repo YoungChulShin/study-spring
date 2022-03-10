@@ -3,7 +3,9 @@ package study.spring.food_delivery.infrastructure;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
+import study.spring.food_delivery.common.RedisKey;
 import study.spring.food_delivery.domain.Agent;
 import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.port.out.AgentStore;
@@ -30,5 +32,14 @@ public class AgentStoreImpl implements AgentStore {
         KEY_AGENT_LOCATION + agentId,
         agentLocation.getLongitude(),
         agentLocation.getLatitude());
+  }
+
+  @Override
+  public void saveDeliveryCount(Agent agent) {
+    ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+    zSetOperations.add(
+        RedisKey.KEY_DELIVERY_COUNT,
+        agent.getId() + " " + agent.getName(),
+        agent.getDeliverySum());
   }
 }

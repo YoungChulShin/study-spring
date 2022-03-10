@@ -1,5 +1,6 @@
 package study.spring.food_delivery.domain.port;
 
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -60,8 +61,10 @@ public class AgentServiceImpl implements AgentService {
   @Transactional
   public long delivery(Long agentId) {
     Agent agent = agentReader.getAgent(agentId);
+    int deliveryCount = agent.delivery();
+    agentStore.saveDeliveryCount(agent);
 
-    return agent.delivery();
+    return deliveryCount;
   }
 
   @Override
@@ -87,5 +90,10 @@ public class AgentServiceImpl implements AgentService {
         agentId,
         agentLocation.getLongitude(),
         agentLocation.getLatitude());
+  }
+
+  @Override
+  public Set<String> getDeliveryTopN(int n) {
+    return agentReader.getTopNAgent(n);
   }
 }

@@ -1,12 +1,12 @@
 package study.spring.food_delivery.infrastructure;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
+import study.spring.food_delivery.common.RedisKey;
 import study.spring.food_delivery.domain.Agent;
 import study.spring.food_delivery.domain.AgentLocation;
 import study.spring.food_delivery.domain.port.out.AgentReader;
@@ -16,8 +16,6 @@ import study.spring.food_delivery.infrastructure.repository.AgentRepository;
 @Component
 @RequiredArgsConstructor
 public class AgentReaderImpl implements AgentReader {
-
-  private static final String KEY_AGENT_LOCATION = "api:agent:location:";
 
   private final AgentRepository agentRepository;
   private final AgentLocationRepository agentLocationRepository;
@@ -44,5 +42,14 @@ public class AgentReaderImpl implements AgentReader {
             agentLocation.getLongitude(),
             agentLocation.getLatitude())).
         orElseGet(() -> new AgentLocation(null, null));
+  }
+
+  @Override
+  public Set<String> getTopNAgent(int n) {
+    ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+    return zSetOperations.reverseRange(
+        RedisKey.KEY_DELIVERY_COUNT,
+        0,
+        n - 1);
   }
 }
