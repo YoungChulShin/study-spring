@@ -19,6 +19,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import study.spring.food_delivery.domain.listener.AgentLocationExpirationListener;
+import study.spring.food_delivery.domain.listener.AgentLocationExpirationListener2;
 
 @Slf4j
 @EnableCaching
@@ -67,10 +68,12 @@ public class RedisConfig {
   @Bean
   public RedisMessageListenerContainer redisMessageListenerContainer(
       RedisConnectionFactory connectionFactory,
-      AgentLocationExpirationListener agentLocationExpirationListener) {
+      AgentLocationExpirationListener agentLocationExpirationListener,
+      AgentLocationExpirationListener2 agentLocationExpirationListener2) {
     RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(connectionFactory);
     container.addMessageListener(agentLocationExpirationListener, new PatternTopic(EXPIRE_PATTERN));
+    container.addMessageListener(agentLocationExpirationListener2, new PatternTopic(EXPIRE_PATTERN));
     container.setErrorHandler(e -> log.error(e.getMessage()));
     return container;
   }
