@@ -1,12 +1,12 @@
 study/spring/spring_test/SpringTestApplication.java
  study.spring.spring_test.SpringTestApplication
-study/spring/spring_test/service/StudentService.java
- study.spring.spring_test.service.StudentService
+study/spring/spring_test/domain/common/ComponentTest.java
+ study.spring.spring_test.domain.common.ComponentTest
 study/spring/spring_test/domain/model/student/StudentRepository.java
  study.spring.spring_test.domain.model.student.StudentRepository
+study/spring/spring_test/service/StudentService.java
+ study.spring.spring_test.service.StudentService
 study/spring/spring_test/presentation/StudentController.java
  study.spring.spring_test.presentation.StudentController
 study/spring/spring_test/domain/model/student/Student.java
  study.spring.spring_test.domain.model.student.Student
-study/spring/spring_test/domain/common/ComponentTest.java
- study.spring.spring_test.domain.common.ComponentTest

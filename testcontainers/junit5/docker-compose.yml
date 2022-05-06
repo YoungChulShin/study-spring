@@ -4,6 +4,8 @@ services:
     image: mysql:8.0
     ports:
       - "3306:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - MYSQL_DATABASE=spring_test
       - MYSQL_ROOT_PASSWORD=1323
