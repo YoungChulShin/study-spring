@@ -2,7 +2,8 @@ myValue:
   value1: testValue
 
 spring:
-  data:
+  jpa:
+    show-sql: true
   datasource:
     username: root
     password: 1323
