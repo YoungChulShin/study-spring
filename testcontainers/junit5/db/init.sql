@@ -4,4 +4,4 @@ create table student
     age  integer not null,
     name varchar(255),
     primary key (id)
-) engine=InnoDB
+) engine=InnoDB;
