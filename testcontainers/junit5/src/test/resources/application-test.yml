@@ -9,3 +9,9 @@
 #  jpa:
 #    hibernate:
 #      ddl-auto: create
+
+#spring:
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
