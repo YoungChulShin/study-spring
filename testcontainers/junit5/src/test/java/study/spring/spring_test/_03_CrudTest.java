@@ -43,7 +43,7 @@ public class _03_CrudTest {
   void saveAndGet() {
     // given
     String name = "ycshin";
-    int age = 20;
+    int age = 99;
     Student student = new Student(name, age);
     studentRepository.save(student);
 

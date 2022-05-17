@@ -4,14 +4,7 @@
 #    password: 1323
 #    # See: https://www.testcontainers.org/modules/databases/mysql/
 #    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-##    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:tc:mysql:8.0://localhost/spring_test
 #  jpa:
 #    hibernate:
 #      ddl-auto: create
-
-#spring:
-#  datasource:
-#    url: ${DB_URL}
-#    username: ${DB_USERNAME}
-#    password: ${DB_PASSWORD}
