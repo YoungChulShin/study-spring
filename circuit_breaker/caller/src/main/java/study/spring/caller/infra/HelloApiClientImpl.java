@@ -4,9 +4,11 @@ import java.net.URI;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Component
 public class HelloApiClientImpl implements HelloApiClient {
 
   private final RestTemplate restTemplate;
