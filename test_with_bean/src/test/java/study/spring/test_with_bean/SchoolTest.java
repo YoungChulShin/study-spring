@@ -20,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 //})
 // 2. location을 지정할 수 있는데, 이 경우 *.properties 또는 *.xml 파일이어야한다
 @TestPropertySource(locations = "classpath:application-test.properties")
+// 3. properties와 location을 모두 지정하면, properties가 높은 우선순위를 가진다
 public class SchoolTest {
 
   @Autowired
