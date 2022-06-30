@@ -42,7 +42,7 @@ public class MapperTest {
 
   @Test
   void deserialize_unknownField_withOptions_FAIL_ON_UNKNOWN_PROPERTIES_shouldNotThrowException() {
-    // given
+    // givenddd
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
     String valueAsString = "{\"name\":\"ycshin\",\"location\":\"gangdong\",\"age\":30,\"type\":\"highschool\"}";
@@ -52,5 +52,20 @@ public class MapperTest {
 
     // then
     Assertions.assertThat(thrown).isNull();
+  }
+
+  @Test
+  void serialize_and_deserialize_withType() throws JsonProcessingException {
+    // given
+    Student student = new Student("ycshin", Gender.MAIL);
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    String valueAsString = objectMapper.writeValueAsString(student);
+
+    // when
+    Student serializedStudent = objectMapper.readValue(valueAsString, Student.class);
+
+    // then
+    Assertions.assertThat(serializedStudent).isEqualTo(student);
   }
 }
