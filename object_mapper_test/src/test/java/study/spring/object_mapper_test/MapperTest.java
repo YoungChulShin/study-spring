@@ -1,10 +1,12 @@
 package study.spring.object_mapper_test;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.fasterxml.jackson.databind.DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -67,5 +69,34 @@ public class MapperTest {
 
     // then
     Assertions.assertThat(serializedStudent).isEqualTo(student);
+  }
+
+  @Test
+  void deserialize_unknownType_shouldThrowException() {
+    // given
+    ObjectMapper objectMapper = new ObjectMapper();
+    String valueAsString = "{\"name\":\"ycshin\",\"gender\":30}";
+
+    // when
+    Throwable thrown = catchThrowable(() -> objectMapper.readValue(valueAsString, Student.class));
+
+    // then
+    Assertions.assertThat(thrown).isNotNull();
+    Assertions.assertThat(thrown.getClass()).isEqualTo(InvalidFormatException.class);
+  }
+
+  @Test
+  void deserialize_unknownType_with__options_shouldThrowException() throws JsonProcessingException {
+    // given
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.enable(READ_UNKNOWN_ENUM_VALUES_AS_NULL);
+    String valueAsString = "{\"name\":\"ycshin\",\"gender\":30}";
+
+    // when
+    Student deserializedStudent = objectMapper.readValue(valueAsString, Student.class);
+
+    // then
+    Assertions.assertThat(deserializedStudent).isNotNull();
+    Assertions.assertThat(deserializedStudent.getGender()).isEqualTo(null);
   }
 }
