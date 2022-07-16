@@ -19,18 +19,20 @@ public class Runner implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     for (int i = 0; i < 100; i++) {
-      sendMessage();
+      sendMessage(i);
 
       Thread.sleep(1000);
     }
   }
 
-  private void sendMessage() {
+  private void sendMessage(int messageId) {
     System.out.println("Sending message...");
+    String message = "[" + messageId + "] " + LocalDateTime.now().toString();
+
     rabbitTemplate.convertAndSend(
         property.getExchangeTopic(),
         "my.message.hello",
-        LocalDateTime.now().toString());
+        message);
   }
 
 
