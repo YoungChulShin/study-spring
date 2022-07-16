@@ -1,0 +1,8 @@
+# see https://www.baeldung.com/configuration-properties-in-spring-boot
+receiver:
+  name: "test1"
+
+message:
+  queue-name: "message-test"
+  exchange-topic: "message-test-topic"
+  routing-key: "my.message.#"
