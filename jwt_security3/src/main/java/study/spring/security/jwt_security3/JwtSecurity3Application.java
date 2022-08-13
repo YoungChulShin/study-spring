@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import study.spring.security.jwt_security3.domain.Role;
 import study.spring.security.jwt_security3.domain.User;
 import study.spring.security.jwt_security3.service.UserService;
@@ -37,5 +39,10 @@ public class JwtSecurity3Application {
       userService.addRoleToUser("min", "ROLE_ADMIN");
       userService.addRoleToUser("min", "ROLE_USER");
     };
+  }
+
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 }
