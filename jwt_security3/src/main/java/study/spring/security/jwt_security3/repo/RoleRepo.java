@@ -5,5 +5,5 @@ import study.spring.security.jwt_security3.domain.Role;
 
 public interface RoleRepo extends JpaRepository<Role, Long> {
 
-  Role findbyName(String name);
+  Role findByName(String name);
 }
