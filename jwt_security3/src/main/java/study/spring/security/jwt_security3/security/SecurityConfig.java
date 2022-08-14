@@ -3,6 +3,7 @@ package study.spring.security.jwt_security3.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,10 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+    CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+    customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+
     http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    http.authorizeHttpRequests().anyRequest().permitAll();
-    http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+    http.authorizeHttpRequests().antMatchers("/api/login/**").permitAll();
+    http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
+    http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+    http.authorizeHttpRequests().anyRequest().authenticated();
+    http.addFilter(customAuthenticationFilter);
   }
 
   @Bean
