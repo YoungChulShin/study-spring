@@ -17,7 +17,8 @@ public class MyFilter implements Filter {
     System.out.println("필터 실행됨");
 
     HttpServletResponse servletResponse = (HttpServletResponse) response;
-    servletResponse.setContentType("text/plain;charset=utf-8");
+    // servletResponse.setContentType("text/plain;charset=utf-8");
+    servletResponse.setContentType("text/event-stream;charset=utf-8");
 
     PrintWriter out = servletResponse.getWriter();
     for (int i = 0; i < 5; i++) {
