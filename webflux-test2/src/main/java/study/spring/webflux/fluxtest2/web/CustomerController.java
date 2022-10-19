@@ -1,7 +1,6 @@
 package study.spring.webflux.fluxtest2.web;
 
 import java.time.Duration;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
