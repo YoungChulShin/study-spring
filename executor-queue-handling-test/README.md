@@ -3,4 +3,7 @@ Executor를 실행할 때, QueueSize를 지정할 경우 Queue Size가 다 차�
 
 문제가 발생했을 때 대응방법을 검토한다
 
+# 참고 문서
+https://www.baeldung.com/java-rejectedexecutionhandler
+
 # 대응방법
