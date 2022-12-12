@@ -9,6 +9,8 @@ import reactor.core.publisher.Mono;
 import study.webflux.webfluxtest4.domain.User;
 import study.webflux.webfluxtest4.service.UserService;
 
+import java.time.Duration;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
@@ -19,7 +21,8 @@ public class UserController {
     @GetMapping(value = "/users", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Flux<User> findAllUsers() {
-        return userService.getUsers();
+        return userService.getUsers()
+                .delayElements(Duration.ofSeconds(1L));
     }
 
     @GetMapping("/users/{id}")

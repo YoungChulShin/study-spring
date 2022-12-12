@@ -25,6 +25,7 @@ public class DBConfig extends AbstractR2dbcConfiguration {
 
         var databasePopulator = new CompositeDatabasePopulator();
         databasePopulator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("db/schema.sql")));
+        databasePopulator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("db/data.sql")));
         initializer.setDatabasePopulator(databasePopulator);
 
         return initializer;
