@@ -40,4 +40,9 @@ public class UserController {
     public Mono<User> updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
+    @DeleteMapping("/users/{id}")
+    public Mono<Void> deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
+    }
 }
