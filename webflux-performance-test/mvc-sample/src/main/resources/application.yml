@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    username: root
+    password: secret
+    url: jdbc:mysql://localhost:3306/school
+    driver-class-name: com.mysql.cj.jdbc.Driver
