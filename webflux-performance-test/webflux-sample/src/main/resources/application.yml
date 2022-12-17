@@ -1,0 +1,7 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/school-reactive-db
+    username: root
+    password: secret
+    pool:
+      enabled: true
