@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 import study.webflux.webfluxsample.domain.School;
+import study.webflux.webfluxsample.domain.SchoolInfo;
 import study.webflux.webfluxsample.domain.SchoolRepository;
 
 @Service

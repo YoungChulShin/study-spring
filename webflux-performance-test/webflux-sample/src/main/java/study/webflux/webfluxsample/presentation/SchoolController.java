@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import study.webflux.webfluxsample.application.CreateSchoolCommand;
-import study.webflux.webfluxsample.application.SchoolInfo;
+import study.webflux.webfluxsample.domain.SchoolInfo;
 import study.webflux.webfluxsample.application.SchoolService;
 
 @RestController

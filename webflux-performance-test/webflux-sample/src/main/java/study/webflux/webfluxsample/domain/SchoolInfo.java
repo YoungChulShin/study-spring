@@ -1,6 +1,4 @@
-package study.webflux.webfluxsample.application;
-
-import study.webflux.webfluxsample.domain.School;
+package study.webflux.webfluxsample.domain;
 
 public record SchoolInfo(Long id, String name) {
 
