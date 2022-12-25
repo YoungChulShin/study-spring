@@ -5,3 +5,9 @@ spring:
     password: secret
     pool:
       enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG

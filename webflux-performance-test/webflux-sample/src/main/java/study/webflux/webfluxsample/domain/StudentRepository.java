@@ -7,10 +7,10 @@ import reactor.core.publisher.Flux;
 public interface StudentRepository extends ReactiveCrudRepository<Student, Long> {
 
     @Query("""
-        SELECT s.id, s.name, s.age, s.gender, sc.name
-        FROM  student s
-        INNER JOIN  school sc
-                ON  s.schoolId = sc.id
+        SELECT s.id, s.name, s.age, s.gender, sc.name as schoolName
+        FROM  students s
+        INNER JOIN  schools sc
+                ON  s.school_id = sc.id
 """)
     Flux<StudentInfo> findAllWithSchool();
 }

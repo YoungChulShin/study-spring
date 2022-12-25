@@ -5,10 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
-import study.webflux.webfluxsample.domain.SchoolRepository;
-import study.webflux.webfluxsample.domain.Student;
-import study.webflux.webfluxsample.domain.StudentInfo;
-import study.webflux.webfluxsample.domain.StudentRepository;
+import study.webflux.webfluxsample.domain.*;
 
 import java.util.List;
 
@@ -33,11 +30,8 @@ public class StudentService {
                         command.gender(),
                         school.getId()
                 )))
-                .flatMap(t -> {
-                    studentRepository.save(t.getT2());
-                    return Mono.just(t);
-                })
-                .map(t -> StudentInfo.from(t.getT2(), t.getT1()));
+                .flatMap(t -> studentRepository.save(t.getT2()))
+                .map(t -> StudentInfo.from(t, new School("test")));
     }
 
     @Transactional(readOnly = true)

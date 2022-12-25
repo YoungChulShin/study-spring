@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS students
     name        varchar(255),
     age         int,
     gender      varchar(20),
-    schoolId    bigint
+    school_id    bigint
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
