@@ -20,11 +20,19 @@ repositories {
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    // web
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // r2dbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'com.github.jasync-sql:jasync-r2dbc-mysql:2.0.8'
+
+
+    // lombok
     compileOnly 'org.projectlombok:lombok'
-    implementation 'dev.miku:r2dbc-mysql:0.8.2.RELEASE'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 }
