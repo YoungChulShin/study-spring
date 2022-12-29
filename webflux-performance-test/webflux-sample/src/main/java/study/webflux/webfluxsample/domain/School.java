@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table(name = "schools")
+@Table(value = "schools")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class School {
