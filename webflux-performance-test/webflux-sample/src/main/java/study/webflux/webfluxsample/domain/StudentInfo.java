@@ -8,13 +8,13 @@ public record StudentInfo(
         String schoolName
 ) {
 
-    public static StudentInfo from(Student student, School school) {
+    public static StudentInfo from(Student student, String schoolName) {
         return new StudentInfo(
                 student.getId(),
                 student.getName(),
                 student.getAge(),
                 student.getGender(),
-                school.getName()
+                schoolName
         );
     }
 }
