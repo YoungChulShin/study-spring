@@ -7,5 +7,8 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=school-reactive-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user_password
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
     command: mysqld --skip-ssl --character_set_server=utf8mb4 --lower_case_table_names=1
