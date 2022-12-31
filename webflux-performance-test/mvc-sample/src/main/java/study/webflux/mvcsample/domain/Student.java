@@ -19,6 +19,7 @@ public class Student {
 
     private int age;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @ManyToOne(fetch = FetchType.EAGER)

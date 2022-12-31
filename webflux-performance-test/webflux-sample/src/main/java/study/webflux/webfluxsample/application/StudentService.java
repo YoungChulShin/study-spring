@@ -33,4 +33,9 @@ public class StudentService {
     public Flux<StudentInfo> findStudents() {
         return studentRepository.findAllWithSchool();
     }
+
+    @Transactional(readOnly = true)
+    public Flux<StudentInfo> findStudentsBySchool(Long schoolId) {
+        return studentRepository.findAllWithSchool(schoolId);
+    }
 }
