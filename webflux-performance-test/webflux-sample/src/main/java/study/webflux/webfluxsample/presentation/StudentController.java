@@ -20,7 +20,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/api/reactive/students")
+    @PostMapping("/api/students")
     public Mono<StudentInfo> createStudent(@RequestBody CreateStudentDto request) {
         return studentService.createStudent(new CreateStudentCommand(
                 request.name(),
@@ -30,7 +30,7 @@ public class StudentController {
         ));
     }
 
-    @GetMapping("/api/reactive/students")
+    @GetMapping("/api/students")
     public Mono<List<StudentInfo>> findStudents() {
         return studentService.findStudents().log().collectList();
     }

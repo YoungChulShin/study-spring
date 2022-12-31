@@ -6,13 +6,13 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
   datasource:
-    username: root
-    password: secret
-    url: jdbc:mysql://localhost:3306/school
+    username: admin
+    password: 1q2w3e4r5t
+    url: jdbc:mysql://my-test.cgtu9baua5oe.ap-northeast-2.rds.amazonaws.com:3306/school-reactive-db
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 application:
-  create-init-data: true
+  create-init-data: false

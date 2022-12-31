@@ -10,6 +10,7 @@ Spring + R2DBC 샘플 코드를 작성하고 설명합니다.
    ```
    ❯ docker-compose -f docker/docker-compose.yml up -d
    ```
+2. 소스 실행
 
 
 

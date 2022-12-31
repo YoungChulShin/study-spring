@@ -43,4 +43,9 @@ public class StudentService {
     public List<StudentInfo> findStudents() {
         return studentRepository.findAll().stream().map(StudentInfo::from).toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<StudentInfo> findStudentsBySchool(Long schoolId) {
+        return studentRepository.findStudentBySchool(schoolId).stream().map(StudentInfo::from).toList();
+    }
 }

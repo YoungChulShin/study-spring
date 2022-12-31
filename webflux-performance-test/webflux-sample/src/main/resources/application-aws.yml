@@ -1,0 +1,7 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://my-test.cgtu9baua5oe.ap-northeast-2.rds.amazonaws.com:3306/school-reactive-db
+    username: admin
+    password: 1q2w3e4r5t
+    pool:
+      enabled: true

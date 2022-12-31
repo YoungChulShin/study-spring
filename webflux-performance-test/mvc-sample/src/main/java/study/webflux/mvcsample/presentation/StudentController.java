@@ -1,9 +1,6 @@
 package study.webflux.mvcsample.presentation;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import study.webflux.mvcsample.application.CreateStudentCommand;
 import study.webflux.mvcsample.application.StudentInfo;
 import study.webflux.mvcsample.application.StudentService;
@@ -32,5 +29,10 @@ public class StudentController {
     @GetMapping("/api/students")
     public List<StudentInfo> findStudents() {
         return studentService.findStudents();
+    }
+
+    @GetMapping("/api/schools/{schoolid}/students")
+    public List<StudentInfo> findStudentsBySchool(@PathVariable Long schoolid) {
+        return studentService.findStudentsBySchool(schoolid);
     }
 }

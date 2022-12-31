@@ -2,9 +2,11 @@ package study.webflux.mvcsample.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import study.webflux.mvcsample.domain.*;
 
+@ConditionalOnProperty(prefix = "application", name = "create-init-data", havingValue = "true")
 @Component
 @AllArgsConstructor
 public class InitConfig implements CommandLineRunner {

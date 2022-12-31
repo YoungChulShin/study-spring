@@ -17,7 +17,7 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
-    @PostMapping("/api/reactive/schools")
+    @PostMapping("/api/schools")
     public Mono<SchoolInfo> createSchool(@RequestBody CreateSchoolDto request) {
         return schoolService.createSchool(new CreateSchoolCommand(request.name())).log();
     }
