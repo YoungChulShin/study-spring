@@ -3,3 +3,14 @@ student:
   age: 10
   gender: male
 
+school:
+  my:
+    elementry-school:
+      name: 고덕초등학교
+      age: 10
+    middle-school:
+      name: 명일중학교
+      age: 5
+    high-school:
+      name: 고덕고등학교
+      age: 90
