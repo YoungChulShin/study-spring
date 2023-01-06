@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConfigurationProperties(value = "school.my")
 class Schools (
-    val elementrySchool: School,
+    val elementarySchool: School,
     val middleSchool: School,
     val highSchool: School,
 )

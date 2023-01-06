@@ -5,7 +5,7 @@ student:
 
 school:
   my:
-    elementry-school:
+    elementary-school:
       name: 고덕초등학교
       age: 10
     middle-school:

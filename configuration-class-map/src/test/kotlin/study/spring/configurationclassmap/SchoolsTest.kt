@@ -12,8 +12,8 @@ internal class SchoolsTest(
 
     @Test
     fun schoolsBinding() {
-        Assertions.assertThat(schools.elementrySchool.name).isEqualTo("고덕초등학교")
-        Assertions.assertThat(schools.elementrySchool.age).isEqualTo(10)
+        Assertions.assertThat(schools.elementarySchool.name).isEqualTo("고덕초등학교")
+        Assertions.assertThat(schools.elementarySchool.age).isEqualTo(10)
 
         Assertions.assertThat(schools.middleSchool.name).isEqualTo("명일중학교")
         Assertions.assertThat(schools.middleSchool.age).isEqualTo(5)
