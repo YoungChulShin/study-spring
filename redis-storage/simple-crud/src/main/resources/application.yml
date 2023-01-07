@@ -1,0 +1,4 @@
+spring:
+  redis:
+    host: locahost
+    port: 6379
