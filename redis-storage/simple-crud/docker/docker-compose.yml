@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  redis:
+    image: redis:6.2.8
+    container_name: redis-crud
+    ports:
+      - "6379:6379"
