@@ -10,7 +10,7 @@ class AgentLocationController(private val agentLocationService: AgentLocationSer
     @PostMapping("/api/v1/agent/{agentId}/location")
     fun saveLocation(
         @PathVariable agentId: Long,
-        request: AgentLocation
+        @RequestBody request: AgentLocation
     ): AgentLocation {
         return agentLocationService.saveLocation(agentId, request)
     }
