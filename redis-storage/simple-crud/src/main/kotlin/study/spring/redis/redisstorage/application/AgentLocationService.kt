@@ -6,6 +6,8 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
 import study.spring.redis.redisstorage.domain.AgentLocation
 import java.lang.RuntimeException
+import java.time.temporal.ChronoUnit
+import java.util.concurrent.TimeUnit
 
 @Service
 class AgentLocationService(
@@ -14,7 +16,13 @@ class AgentLocationService(
 ) {
     fun saveLocation(agentId: Long, request: AgentLocation): AgentLocation {
         val ops = redisTemplate.opsForValue()
-        ops.set(agentId.toString(), objectMapper.writeValueAsString(request))
+        ops.set(
+            agentId.toString(),
+            objectMapper.writeValueAsString(request),
+            10,
+            TimeUnit.SECONDS
+        )
+
         return request
     }
 
