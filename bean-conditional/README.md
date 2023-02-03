@@ -43,6 +43,22 @@ class BooleanCondition : Condition {
 // 사용
 @Configuration
 @BooleanConditional(false)
-class FalsePrinterConfiguration {
+class FalsePrinterConfiguration { }
 ```
 
+### ConditionalOnProperty 
+application property 값을 이용해서 활성화 여부를 설정해줄 수 있다.
+
+샘플 코드
+```properties
+application.printer.boolean-printer=true
+```
+```kotlin
+@Configuration
+@ConditionalOnProperty(value = ["application.printer.boolean-printer"], havingValue = "true")
+class TruePrinterConfiguration { }
+
+@Configuration
+@ConditionalOnProperty(value = ["application.printer.boolean-printer"], havingValue = "false")
+class FalsePrinterConfiguration { }
+```
