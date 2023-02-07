@@ -1,0 +1,6 @@
+service:
+  name: "property test"
+  host: "https://property-test.com"
+  category: spring
+  users:
+    count: 100
