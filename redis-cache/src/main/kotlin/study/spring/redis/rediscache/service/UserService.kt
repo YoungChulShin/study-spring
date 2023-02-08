@@ -1,5 +1,6 @@
 package study.spring.redis.rediscache.service
 
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
@@ -9,6 +10,7 @@ class UserService {
         private val users = mutableSetOf<String>()
     }
 
+    @Cacheable("test")
     fun findUsers(): Set<String> {
         Thread.sleep(1000)
         return users
