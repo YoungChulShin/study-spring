@@ -24,17 +24,23 @@ class RedisConfig {
         val configuration = RedisCacheConfiguration.defaultCacheConfig()
             .disableCachingNullValues()
             .entryTtl(Duration.ofSeconds(CacheKey.DEFAULT_TTL))
-//            .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()))
+
+        val keyConfiguration = mutableMapOf(
+            CacheKey.FIND_USERS to RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheKey.FIND_USERS_TTL))
+        )
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory)
             .cacheDefaults(configuration)
+            .withInitialCacheConfigurations(keyConfiguration)
             .build()
     }
 }
 
 class CacheKey {
     companion object {
-        const val DEFAULT_TTL = 60L
-
+        const val DEFAULT_TTL = 30L
+        const val FIND_USERS = "findUsers"
+        const val FIND_USERS_TTL = 60L
     }
 }
