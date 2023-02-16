@@ -11,7 +11,9 @@ class UserService {
         private val users = mutableSetOf<String>()
     }
 
-    @Cacheable("test")
+    @Cacheable(
+        value = ["findUsers"]
+    )
     fun findUsers(): Set<String> {
         Thread.sleep(5000)
         return users
