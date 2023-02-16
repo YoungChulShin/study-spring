@@ -1,5 +1,6 @@
 package study.spring.redis.rediscache.service
 
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
@@ -12,14 +13,16 @@ class UserService {
 
     @Cacheable("test")
     fun findUsers(): Set<String> {
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         return users
     }
 
+    @CacheEvict("test")
     fun addUser(name: String) {
         users.add(name)
     }
 
+    @CacheEvict("test")
     fun removeUser(name: String) {
         users.remove(name)
     }
