@@ -12,6 +12,9 @@ class UserController(
     @GetMapping
     fun findUsers() = userService.findUsers()
 
+    @GetMapping("/{name}")
+    fun findUser(@PathVariable name: String) = userService.findUser(name)
+
     @PostMapping
     fun addUser(name: String) = userService.addUser(name)
 
