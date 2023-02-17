@@ -115,4 +115,19 @@ RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFacto
 ```
 
 
+### CacheManager를 직접 주입 받아서 사용
+CacheManager를 빈으로 등록하기 때문에, 필요에 따라서 주입받아서 사용할 수 있다.
+
+```kotlin
+class UserService(
+    private val cacheManager: RedisCacheManager,
+) {
+
+    fun test() {
+        // cacheManager를 이용해서 특정 cache의 항목을 삭제
+        cacheManager.getCache("cacheName")?.evict("keyName")
+    }
+}
+```
+
 ## Cache 키 만료 설정
