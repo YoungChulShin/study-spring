@@ -1,12 +1,14 @@
 package study.spring.osiv_lazylaoding.application;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import study.spring.osiv_lazylaoding.application.event.StudentEvent;
 import study.spring.osiv_lazylaoding.application.model.CreateStudentCommand;
 import study.spring.osiv_lazylaoding.application.model.StudentInfo;
 import study.spring.osiv_lazylaoding.domain.School;
@@ -18,6 +20,7 @@ import study.spring.osiv_lazylaoding.domain.StudentRepository;
 @RequiredArgsConstructor
 public class StudentService {
 
+  private final ApplicationEventPublisher eventPublisher;
   private final StudentRepository studentRepository;
   private final SchoolRepository schoolRepository;
 
@@ -37,18 +40,27 @@ public class StudentService {
     return student.getId();
   }
 
-  @Transactional(readOnly = true)
+  @Transactional
   public StudentInfo findStudent(Long studentId) {
     Student student = studentRepository.findById(studentId)
         .orElse(null);
 
-    Student student1 = self.selfTestMethod(studentId, student);
-    student1.getSchoolName();
-    student1.updateName("testName");
-
     return student != null
-        ? new StudentInfo(student.getName(), student.getAge(), student.getSchoolName())
+        ? new StudentInfo(student)
         : null;
+  }
+
+  @Transactional
+  public String updateStudentName(Long studentId, String name) {
+    Student student = studentRepository.findById(studentId).orElse(null);
+    if (student == null) {
+      return null;
+    }
+
+    student.updateName(name);
+    eventPublisher.publishEvent(new StudentEvent(student));
+
+    return student.getName();
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)

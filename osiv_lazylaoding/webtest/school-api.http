@@ -18,3 +18,11 @@ content-type: application/json
 
 ### 학생 조회
 GET http://localhost:5001/api/students/1
+
+### 학생 이름 업데이트
+POST http://localhost:5001/api/students/1/update-name
+content-type: application/json
+
+{
+  "name": ""
+}
