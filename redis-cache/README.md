@@ -131,3 +131,82 @@ class UserService(
 ```
 
 ## Cache 키 만료 설정
+### redis.conf 설정
+redis는 command에 대한 notification을 받을 수 있는데, 기본적으로는 비활성화되어있다. 개발환경에서 notification을 활성화하려면 `redis.conf` 파일을 직접 생성하고, 이 값에 설정을 해줘야한다. 
+
+관련 설정 정보 링크
+- redis notifiaction: https://redis.io/docs/manual/keyspace-notifications/
+- redis configuration: https://redis.io/docs/management/config/
+
+redis.conf 설정
+```
+# 외부에서 접속 가능하도록 설정
+bind 0.0.0.0 -::1
+
+# 만료에 대한 keyspace 이벤트 활성화
+notify-keyspace-events Ex
+
+# acl 설정
+aclfile /etc/redis/users.acl
+```
+
+### acl 설정
+acl은 보안을 위해서 사용해주는게 좋다. 7부터는 channel에 대한 설정도 해줘야한다. 
+
+acl 설정: https://redis.io/docs/management/security/acl/
+
+```
+user default on +@all ~* >mypassword@!
+
+# user myuser: myuser라는 사용자 추가
+# on: 활성화
+# >password: 비밀번호는 password
+# ~*: 모든 key
+# &*: 모든 channel
+# +@all: 모든 권한
+user myuser on >password ~* &* +@all
+```
+
+### docker-compose 설정
+세팅한 acl과 redis.conf는 docker-compose에서 volume으로 공유해서 container에 복사될 수 있도록 한다
+```yml
+services:
+  redis:
+    image: redis:7.0.5
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/acl/users.acl:/etc/redis/users.acl
+    command: redis-server /usr/local/etc/redis/redis.conf
+```
+
+### RedisMessageListenerContainer 설정
+RedisMessageListenerContainer의 구현체를 등록함으로써 publish되는 메시지를 구독할 수 있다. 이때 2가지 항목을 같이 등록해준다.
+1. 패턴: 이때 만료되는 토픽만 받기 위해서는 `패턴`을 등록해준다. 
+2. MessageListener: Message가 Subscribe되었을 때 실행될 동작을 정의해준다. 
+
+샘플 코드
+```kotlin
+val container = RedisMessageListenerContainer()
+    with(container) {
+        this.setConnectionFactory(connectionFactory)
+        this.addMessageListener(
+            expiredMessageListener,
+            PatternTopic("__keyevent@*__:expired")
+        )
+        this.setErrorHandler {
+            logger.error("Expire listener error: ${it.message}", it)
+        }
+    }
+```
+
+MessageListener
+```java
+@FunctionalInterface
+public interface MessageListener {
+	void onMessage(Message message, @Nullable byte[] pattern);
+}
+```
