@@ -1,0 +1,2 @@
+user default on +@all ~* >mypassword@!
+user myuser on >password ~* &* +@all

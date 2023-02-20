@@ -6,7 +6,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ~/redis/redis.conf:/user/local/etc/redis/redis.conf
-    command:
-      - redis-server
-      - /user/local/etc/redis/redis.conf
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/acl/users.acl:/etc/redis/users.acl
+    command: redis-server /usr/local/etc/redis/redis.conf

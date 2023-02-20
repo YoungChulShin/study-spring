@@ -29,7 +29,7 @@ class RedisConfig {
     @Bean
     fun redisConnectionFactory(): LettuceConnectionFactory {
         val config = RedisStandaloneConfiguration("localhost", 6379)
-        config.username = "all-service"
+        config.username = "myuser"
         config.setPassword("password")
         return LettuceConnectionFactory(config)
     }
