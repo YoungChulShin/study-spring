@@ -49,6 +49,12 @@ class FalsePrinterConfiguration { }
 ### ConditionalOnProperty 
 application property 값을 이용해서 활성화 여부를 설정해줄 수 있다.
 
+`having values` 값의 설정에 따라서 조건이 다르게 적용되니 이 부분은 주의하자
+- empty (default): false일 경우에만 적용이 안된다
+- true: true일 경우에만 적용된다
+- false: false일 경우에만 적용된다
+- 특정 값: 특정 값일 경우에만 적용된다
+
 샘플 코드
 ```properties
 application.printer.boolean-printer=true
