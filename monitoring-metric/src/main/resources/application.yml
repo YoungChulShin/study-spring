@@ -6,3 +6,8 @@ management:
         include: "health, metrics"
   server:
     port: 8090
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
