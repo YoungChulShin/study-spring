@@ -16,8 +16,12 @@ repositories {
 }
 
 dependencies {
-    // web, data
+    // web
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // data
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.h2database:h2")
 
     // kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
