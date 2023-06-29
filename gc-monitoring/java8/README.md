@@ -1,4 +1,9 @@
 # GC 모니터링
+## 참고 링크
+링크
+- GC 관련 정리: https://github.com/YoungChulShin/TIL/blob/master/Java/GC.md
+- 자바 최적화 책 정리: https://github.com/YoungChulShin/TIR/blob/master/기술서적/%5BJava%5D%20자바%20최적화/08.GC로깅_모니터링_튜닝.md
+
 ## 저장소 설명
 GC를 임의로 발생시키고 그 결과를 모니터링합니다.
 
