@@ -1,4 +1,4 @@
-package study.spring.depdencyrule.layerdependencycheck.domain;
+package study.spring.depdencyrule.layerdependencycheck.student.domain;
 
 import java.util.UUID;
 

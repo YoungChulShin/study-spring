@@ -1,4 +1,4 @@
-package study.spring.depdencyrule.layerdependencycheck.application.port.in.model;
+package study.spring.depdencyrule.layerdependencycheck.student.application.port.in.model;
 
 public class AddStudentCommand {
 
