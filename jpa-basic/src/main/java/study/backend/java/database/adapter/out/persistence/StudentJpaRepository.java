@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import study.backend.java.database.domain.Student;
 
-interface StudentJpaRepository extends JpaRepository<Student, Long> {
+interface StudentJpaRepository
+    extends JpaRepository<Student, Long>, StudentJpaRepositoryCustom {
 
   @Query("SELECT s FROM Student s JOIN FETCH s.school WHERE s.id = :id")
   Student findWithSchoolById(@Param("id") Long id);

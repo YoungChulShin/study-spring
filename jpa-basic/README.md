@@ -1,4 +1,5 @@
-# 03. Database
+# JPA Basic
+JPA 사용을 위한 기본 코드를 샘플코드와 함께 설명합니다.
 ## 내용
 - mysql container 동작
 - JPA 연동
@@ -37,9 +38,11 @@ services:
 
 ## JPA 사용
 ### 라이브러리 구성
-아래 라이브러리를 기본적으로 사용합니다. 
+라이브러리
 - spring-boot-starter-data-jpa: jpa 사용
 - mysql-connector-java: mysql 사용
-
-아래 라이브러리는 테스트 목적으로 사용합니다. 
 - p6spy-spring-boot-starter: 실제 파라미터가 포함된 쿼리 로그 출력
+
+### Querydsl 설정
+Querydsl을 사용하기 위한 설정이 `'build.gradle'` 파일에 들어가 있습니다.
+

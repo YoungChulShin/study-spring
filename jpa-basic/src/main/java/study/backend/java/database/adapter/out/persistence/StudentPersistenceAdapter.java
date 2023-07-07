@@ -1,9 +1,8 @@
 package study.backend.java.database.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import study.backend.java.database.application.port.in.model.StudentInfo;
 import study.backend.java.database.application.port.out.StudentPort;
 import study.backend.java.database.domain.Student;
 
@@ -26,5 +25,10 @@ class StudentPersistenceAdapter implements StudentPort {
   @Override
   public Student findWithSchoolById(Long id) {
     return studentJpaRepository.findWithSchoolById(id);
+  }
+
+  @Override
+  public StudentInfo findStudent(Long id) {
+    return studentJpaRepository.findStudent(id);
   }
 }
