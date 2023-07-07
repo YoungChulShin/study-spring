@@ -1,0 +1,8 @@
+interceptor:
+  authentication:
+    excluded-urls: /, /health, /favicon.ico
+  request-response-log:
+    exclude-patterns: '/v2/api-docs'
+    exclude-methods: OPTIONS,HEAD,CONNECT,TRACE
+    exclude-headers: authorization
+    exclude-status: 404
