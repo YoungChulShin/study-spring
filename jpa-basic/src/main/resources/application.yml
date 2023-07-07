@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: user
+    password: user_password
+    url: jdbc:mysql://localhost:3306/my-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false # OSIV 비활성화
+
+interceptor:
+  authentication:
+    excluded-urls: /, /health, /favicon.ico
+  request-response-log:
+    exclude-patterns: '/v2/api-docs'
+    exclude-methods: OPTIONS,HEAD,CONNECT,TRACE
+    exclude-headers: authorization
+    exclude-status: 404

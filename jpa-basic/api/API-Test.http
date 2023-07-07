@@ -1,0 +1,23 @@
+### 학교 생성
+POST http://localhost:8080/api/v1/schools
+Content-Type: application/json
+
+{
+  "name": "사직고등학교"
+}
+
+### 학교 조회
+GET http://localhost:8080/api/v1/schools/1
+
+### 학생 생성
+POST http://localhost:8080/api/v1/students
+Content-Type: application/json
+
+{
+  "name": "딘딘",
+  "age": 15,
+  "schoolId": 1
+}
+
+### 학생 조회
+GET http://localhost:8080/api/v1/students/2
