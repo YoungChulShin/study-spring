@@ -3,6 +3,7 @@ package study.backend.java.database.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.backend.java.database.application.port.in.StudentUseCase;
+import study.backend.java.database.application.port.in.model.StudentInfo;
 import study.backend.java.database.application.port.out.SchoolPort;
 import study.backend.java.database.application.port.out.StudentPort;
 import study.backend.java.database.domain.School;
@@ -29,10 +30,9 @@ class StudentService implements StudentUseCase {
     return student.getId();
   }
 
-  // TODO [ycshin]: fetchjoin + info class로 변경 필요
   @Override
   @Transactional(readOnly = true)
-  public Student getStudent(Long id) {
+  public StudentInfo getStudent(Long id) {
     // 방법 1: 명시적 조회
     // Student student = studentPort.findById(id);
     // School school = student.getSchool();
@@ -44,6 +44,12 @@ class StudentService implements StudentUseCase {
     // join schools s2_0 on s2_0.id=s1_0.school_id
     // where s1_0.id=2;
 
-    return studentPort.findWithSchoolById(id);
+    // 방법 3: Querydsl과 CustomClass를 이용한 조회
+    // select s1_0.id, s1_0.name, s1_0.age, s2_0.name
+    // from students s1_0
+    // join schools s2_0 on s1_0.school_id = s2_0.id
+    // where s1_0.id = 1;
+
+    return studentPort.findStudent(id);
   }
 }

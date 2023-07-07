@@ -4,5 +4,5 @@ public record StudentInfo(
     Long id,
     String name,
     Integer age,
-    Long schoolName) {
+    String schoolName) {
 }

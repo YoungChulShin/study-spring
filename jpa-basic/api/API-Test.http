@@ -14,10 +14,10 @@ POST http://localhost:8080/api/v1/students
 Content-Type: application/json
 
 {
-  "name": "딘딘",
+  "name": "딘딘3",
   "age": 15,
   "schoolId": 1
 }
 
 ### 학생 조회
-GET http://localhost:8080/api/v1/students/2
+GET http://localhost:8080/api/v1/students/1
