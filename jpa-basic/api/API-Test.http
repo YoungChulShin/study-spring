@@ -3,8 +3,11 @@ POST http://localhost:8080/api/v1/schools
 Content-Type: application/json
 
 {
-  "name": "사직고등학교"
+  "name": "항공대학교"
 }
+
+### 전체 학교 조회
+GET http://localhost:8080/api/v1/schools
 
 ### 학교 조회
 GET http://localhost:8080/api/v1/schools/1
@@ -14,9 +17,9 @@ POST http://localhost:8080/api/v1/students
 Content-Type: application/json
 
 {
-  "name": "딘딘4",
+  "name": "조세호3",
   "age": 15,
-  "schoolId": 1
+  "schoolId": 3
 }
 
 ### 학생 조회
