@@ -48,6 +48,10 @@ services:
 - Student: 학생 정보
 - School과 Student가 1:N 양방향 연관관계를 가집니다. 
 
+### N+1 문제 해결
+학교를 조회할 때, 학생 정보를 가져오는 과정에서 N+1이 발생할 수 있습니다. 발생 케이스와 fetchJoin, Querydsl로 문제를 해결하는 방법을 설명합니다. 
+- `application.service.SchoolService#findSchools()`을 확인합니다.
+
 ## Querydsl 사용
 ### 설정
 설정
@@ -63,7 +67,6 @@ QuerydslRepositorySupport
 
 Entity가 아닌 Custom Class를 응답하도록 처리
 - `ckend.java.database.adapter.out.persistenceStudentJpaRepositoryImpl#findStudent` 코드를 참고한다
-
 
 ### 참고 링크
 querydsl 정리: https://github.com/YoungChulShin/TIL/tree/master/Spring/05.JPA/Querydsl
