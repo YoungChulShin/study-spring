@@ -5,7 +5,6 @@ JPA 사용을 위한 기본 코드를 샘플코드와 함께 설명합니다.
 - JPA 연동
 - querydsl 연동
 - native query 연동
-- n+1 쿼리를 방지하기 위한 bach size 조절
 
 ## mysql container 동작
 ### 컨테이너 동작
@@ -60,7 +59,11 @@ JpaRepository와 함께 사용
 - `StudentJpaRepository`, `StudentJpaRepositoryCustom`, `StudentJpaRepositoryImpl`을 참고합니다. 
 
 QuerydslRepositorySupport
-- 복잡한 조회 조건을 처리할 때, 코드 기반으로 쿼리를 편하게 작성할 수 있습니다. 
+- 복잡한 조회 조건을 처리할 때, 코드 기반으로 쿼리를 편하게 작성할 수 있습니다.
+
+Entity가 아닌 Custom Class를 응답하도록 처리
+- `ckend.java.database.adapter.out.persistenceStudentJpaRepositoryImpl#findStudent` 코드를 참고한다
+
 
 ### 참고 링크
 querydsl 정리: https://github.com/YoungChulShin/TIL/tree/master/Spring/05.JPA/Querydsl

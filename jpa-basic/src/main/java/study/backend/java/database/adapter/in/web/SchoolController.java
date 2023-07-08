@@ -1,6 +1,7 @@
 package study.backend.java.database.adapter.in.web;
 
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import study.backend.java.database.adapter.in.web.SchoolDto.AddSchoolRequest;
 import study.backend.java.database.adapter.in.web.SchoolDto.AddSchoolResponse;
 import study.backend.java.database.adapter.in.web.SchoolDto.SchoolInfo;
 import study.backend.java.database.application.port.in.SchoolUseCase;
+import study.backend.java.database.application.port.in.model.StudentInfo;
 import study.backend.java.database.common.response.CommonResponse;
 import study.backend.java.database.domain.School;
 
@@ -32,5 +34,11 @@ class SchoolController {
   CommonResponse findSchool(@PathVariable Long id) {
     School school = schoolUseCase.getSchool(id);
     return CommonResponse.success(new SchoolInfo(school.getId(), school.getName()));
+  }
+
+  @GetMapping("/{id}/students")
+  CommonResponse findStudents(@PathVariable Long id) {
+    List<StudentInfo> students = schoolUseCase.findStudents(id);
+    return CommonResponse.success(students);
   }
 }
