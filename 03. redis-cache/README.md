@@ -43,6 +43,12 @@ key의 구현체
 fun findUser(name: String): String? {
 ```
 
+캐시 적용 샘플
+```
+localhost:6379> keys *
+1) "findUsers::SimpleKey []"    // findUsers를 호출
+2) "findUser::ycshin"           // findUser#ycshin 호출
+```
 
 ### `@CacheEvict`
 기능: 키를 삭제할 수 있다
@@ -183,6 +189,11 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
 ```
 
+Redis 접속
+```
+❯ redis-cli -h localhost -p 6379 --user myuser --pass password
+```
+
 ### RedisMessageListenerContainer 설정
 RedisMessageListenerContainer의 구현체를 등록함으로써 publish되는 메시지를 구독할 수 있다. 이때 2가지 항목을 같이 등록해준다.
 1. 패턴: 이때 만료되는 토픽만 받기 위해서는 `패턴`을 등록해준다. 
@@ -209,4 +220,10 @@ MessageListener
 public interface MessageListener {
 	void onMessage(Message message, @Nullable byte[] pattern);
 }
+```
+
+만료 샘플 값
+```
+config.ExpiredMessageListener    : findUser::ycshin
+config.ExpiredMessageListener    : findUsers::SimpleKey []
 ```

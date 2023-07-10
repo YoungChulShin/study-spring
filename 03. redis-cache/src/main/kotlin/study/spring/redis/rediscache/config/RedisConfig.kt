@@ -62,11 +62,13 @@ class RedisConfig {
     private fun getDefaultConfiguration(objectMapper: ObjectMapper) =
         RedisCacheConfiguration.defaultCacheConfig()
             .disableCachingNullValues()
+            // keySerializer 설정
             .serializeKeysWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(
                     StringRedisSerializer()
                 )
             )
+            // valueSerializer 설정. Readable한 String 값으로 저장하기 위해서 Jackson serializer를 이용했다
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(
                     Jackson2JsonRedisSerializer(objectMapper, Object::class.java)
@@ -84,6 +86,8 @@ class RedisConfig {
             this.setConnectionFactory(connectionFactory)
             this.addMessageListener(
                 expiredMessageListener,
+                // expired와 관련된 모든 이벤트를 받겠다
+                // message는 key 값
                 PatternTopic("__keyevent@*__:expired")
             )
             this.setErrorHandler {
