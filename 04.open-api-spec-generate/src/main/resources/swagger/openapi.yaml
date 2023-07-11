@@ -21,7 +21,26 @@ paths:
       tags:
         - hello
       parameters:
-        - $ref: '#/components/parameters/nameParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application.json:
+              schema:
+                $ref: '#/components/schemas/GetHelloResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /hello/{name}:
+    get:
+      description: 'Path variable 기준으로 인사를 합니다'
+      tags:
+        - hello
+      parameters:
+        - $ref: '#/components/parameters/NamePathParam'
       responses:
         '200':
           description: 'OK'
@@ -92,12 +111,21 @@ components:
         - FAIL
 
   parameters:
-    nameParam:
+    NameParam:
       name: name
       in: query
       description: '사용자 이름'
       required: true
       deprecated: false
+      allowEmptyValue: false
+      schema:
+        type: string
+
+    NamePathParam:
+      name: name
+      in: path
+      description: '사용자 이름'
+      required: true
       allowEmptyValue: false
       schema:
         type: string
