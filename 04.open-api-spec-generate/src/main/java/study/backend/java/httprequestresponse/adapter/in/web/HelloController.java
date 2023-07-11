@@ -3,6 +3,7 @@ package study.backend.java.httprequestresponse.adapter.in.web;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,12 @@ public class HelloController {
   private final HelloUseCase helloUseCase;
 
   @GetMapping("/hello")
-  public CommonResponse<String> hello(@RequestParam(name = "name") String name) {
+  public CommonResponse<String> helloWithQueryParam(@RequestParam(name = "name") String name) {
+    return CommonResponse.success(helloUseCase.hello(name));
+  }
+
+  @GetMapping("/hello/{name}")
+  public CommonResponse<String> helloWithPath(@PathVariable String name) {
     return CommonResponse.success(helloUseCase.hello(name));
   }
 

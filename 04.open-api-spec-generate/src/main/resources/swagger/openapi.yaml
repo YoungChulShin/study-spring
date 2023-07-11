@@ -1,0 +1,136 @@
+# @see https://swagger.io/specification/
+openapi: '3.0.1'
+
+info:
+  title: 'open-api-spec-generate-test'
+  description: 'OAS을 이용해서 API code를 생성하는 테스트를 합니다'
+  version: '0.0.1'
+
+servers:
+  - url: http://localhost:8080
+    description: local server
+
+externalDocs:
+  description: '샘플 코드'
+  url: https://github.com/YoungChulShin/study-spring/tree/master/04.open-api-spec-generate
+
+paths:
+  /hello:
+    get:
+      description: '쿼리 파라미터 기준으로 인사를 합니다'
+      tags:
+        - hello
+      parameters:
+        - $ref: '#/components/parameters/nameParam'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application.json:
+              schema:
+                $ref: '#/components/schemas/GetHelloResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+
+components:
+  schemas:
+
+    #----------------------------------------
+    # API Response
+    #----------------------------------------
+    CommonErrorResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/APIResult'
+        data:
+          type: string
+          nullable: true
+          example: null
+        message:
+          type: string
+          description: '에러 메시지'
+          nullable: true
+        errorCode:
+          type: string
+          description: '에러 코드'
+          nullable: true
+          example: 'COMMON_SYSTEM_ERROR'
+
+    GetHelloResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/APIResult'
+        data:
+          type: string
+          nullable: true
+          example: 'Hello, youngchul'
+        message:
+          type: string
+          description: '응답 메시지'
+          nullable: true
+          example: null
+        errorCode:
+          type: string
+          description: '에러 코드'
+          nullable: true
+          example: null
+
+
+    APIResult:
+      description: |
+        - API 결과 응답
+        - SUCCESS: 성공
+        - FAIL: 실패
+      type: string
+      enum:
+        - SUCCESS
+        - FAIL
+
+  parameters:
+    nameParam:
+      name: name
+      in: query
+      description: '사용자 이름'
+      required: true
+      deprecated: false
+      allowEmptyValue: false
+      schema:
+        type: string
+
+  responses:
+
+    Created:
+      description: Created
+
+    Accepted:
+      description: Accepted
+
+    NoContent:
+      description: No Content
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+
