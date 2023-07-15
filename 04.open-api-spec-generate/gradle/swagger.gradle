@@ -1,0 +1,19 @@
+// @see https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "${rootDir}/src/main/resources/swagger/openapi.yaml".toString()
+    outputDir = "${buildDir}/openapi".toString()
+    apiPackage = "study.backend.java.httprequestresponse.rest"
+    modelPackage = "study.backend.java.httprequestresponse.rest"
+    modelNameSuffix = "Dto"
+    // @see https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/spring.md
+    configOptions = [
+            delegatePattern        : 'true',
+            hideGenerationTimestamp: 'true',
+            useSpringBoot3         : 'true',
+            useJakartaEe           : 'true'
+    ]
+    validateSpec = true
+}
+
+compileJava.dependsOn tasks.named("openApiGenerate")

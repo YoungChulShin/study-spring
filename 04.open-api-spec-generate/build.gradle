@@ -3,8 +3,11 @@ plugins {
 	id 'org.springframework.boot' version '3.1.0'
 	id 'io.spring.dependency-management' version '1.1.0'
 	// @see https://openapi-generator.tech/docs/plugins
+	// @sse https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
 	id 'org.openapi.generator' version '6.6.0'
 }
+
+apply from: 'gradle/swagger.gradle'
 
 group = 'study.backend.java'
 version = '0.0.1-SNAPSHOT'
@@ -54,5 +57,3 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-compileJava.dependsOn tasks.named("openApiGenerate")
