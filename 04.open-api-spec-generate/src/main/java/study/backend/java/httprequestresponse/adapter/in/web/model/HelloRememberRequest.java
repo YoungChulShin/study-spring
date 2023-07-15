@@ -17,9 +17,4 @@ public record HelloRememberRequest(
     AddressDto address
 ) {
 
-  public record AddressDto(
-      @NotEmpty String fullAddress,
-      @NotEmpty String bunji,
-      @NotEmpty String roadName) {
-  }
 }

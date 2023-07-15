@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import study.backend.java.httprequestresponse.adapter.in.web.model.HelloRememberRequest;
+import study.backend.java.httprequestresponse.adapter.in.web.model.HelloRememberResponse;
 import study.backend.java.httprequestresponse.common.response.CommonResponse;
 import study.backend.java.httprequestresponse.application.port.in.HelloUseCase;
 
@@ -29,8 +30,11 @@ public class HelloController {
   }
 
   @PostMapping("/hello/remember")
-  public CommonResponse<String> remember(
+  public CommonResponse<HelloRememberResponse> remember(
       @RequestBody @Valid HelloRememberRequest request) {
-    return CommonResponse.success(request.toString());
+    return CommonResponse.success(new HelloRememberResponse(
+        request.name(),
+        request.age(),
+        request.address()));
   }
 }
