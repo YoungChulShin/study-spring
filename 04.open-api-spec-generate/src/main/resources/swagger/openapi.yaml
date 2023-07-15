@@ -24,11 +24,7 @@ paths:
         - $ref: '#/components/parameters/NameParam'
       responses:
         '200':
-          description: 'OK'
-          content:
-            application.json:
-              schema:
-                $ref: '#/components/schemas/GetHelloResponse'
+          $ref: '#/components/responses/GetHelloResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -43,22 +39,62 @@ paths:
         - $ref: '#/components/parameters/NamePathParam'
       responses:
         '200':
-          description: 'OK'
-          content:
-            application.json:
-              schema:
-                $ref: '#/components/schemas/GetHelloResponse'
+          $ref: '#/components/responses/GetHelloResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/ServerError'
 
+  /hello/remember:
+    post:
+      description: 'member 정보를 추가합니다'
+      tags:
+        - hello
+      requestBody:
+        $ref: '#/components/requestBodies/HelloRememberRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PostHelloRememberResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
 components:
   schemas:
 
     #----------------------------------------
-    # API Response
+    # Common Schema
+    #----------------------------------------
+    AddressDto:
+      description: '주소 정보 Dto'
+      type: object
+      properties:
+        fullAddress:
+          type: string
+          description: '전체 주소'
+          nullable: false
+        bunji:
+          type: string
+          description: '번지'
+          nullable: false
+        roadName:
+          type: string
+          description: '도로명'
+          nullable: false
+
+    APIResult:
+      description: |
+        - API 결과 응답
+        - SUCCESS: 성공
+        - FAIL: 실패
+      type: string
+      enum:
+        - SUCCESS
+        - FAIL
+
+    #----------------------------------------
+    # Common API Response
     #----------------------------------------
     CommonErrorResponse:
       type: object
@@ -79,15 +115,12 @@ components:
           nullable: true
           example: 'COMMON_SYSTEM_ERROR'
 
-    GetHelloResponse:
+    CommonApiResponse:
+      description: '공통 API 응답 필드 리스트'
       type: object
       properties:
         result:
           $ref: '#/components/schemas/APIResult'
-        data:
-          type: string
-          nullable: true
-          example: 'Hello, youngchul'
         message:
           type: string
           description: '응답 메시지'
@@ -98,17 +131,6 @@ components:
           description: '에러 코드'
           nullable: true
           example: null
-
-
-    APIResult:
-      description: |
-        - API 결과 응답
-        - SUCCESS: 성공
-        - FAIL: 실패
-      type: string
-      enum:
-        - SUCCESS
-        - FAIL
 
   parameters:
     NameParam:
@@ -130,8 +152,34 @@ components:
       schema:
         type: string
 
+  requestBodies:
+
+    #----------------------------------------
+    # HelloController Request
+    #----------------------------------------
+    HelloRememberRequest:
+      description: 'Hello Remember 요청'
+      content:
+        application.json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                nullable: false
+              age:
+                type: integer
+                nullable: false
+                minimum: 0
+                maximum: 100
+              address:
+                $ref: '#/components/schemas/AddressDto'
+
   responses:
 
+    #----------------------------------------
+    # Common Responses
+    #----------------------------------------
     Created:
       description: Created
 
@@ -162,3 +210,44 @@ components:
           schema:
             $ref: '#/components/schemas/CommonErrorResponse'
 
+    #----------------------------------------
+    # HelloController Responses
+    #----------------------------------------
+    GetHelloResponse:
+      description: 'OK'
+      content:
+        application.json:
+          schema:
+            allOf:
+              - type: object
+                properties:
+                  data:
+                    type: string
+                    nullable: true
+                    example: 'Hello, youngchul'
+              - $ref: '#/components/schemas/CommonApiResponse'
+
+    PostHelloRememberResponse:
+      description: 'OK'
+      content:
+        application.json:
+          schema:
+            allOf:
+              - type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: '이름'
+                        nullable: false
+                        example: '영철'
+                      age:
+                        type: integer
+                        description: '나이'
+                        nullable: false
+                        example: 20
+                      address:
+                        $ref: '#/components/schemas/AddressDto'
+              - $ref: '#/components/schemas/CommonApiResponse'
