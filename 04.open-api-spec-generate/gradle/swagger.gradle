@@ -16,4 +16,8 @@ openApiGenerate {
     validateSpec = true
 }
 
+sourceSets {
+    main.java.srcDir layout.buildDirectory.file('openapi/src/main/java')
+}
+
 compileJava.dependsOn tasks.named("openApiGenerate")
