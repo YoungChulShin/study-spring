@@ -1,10 +1,10 @@
-package study.spring.configurationproperty;
+package study.spring.configurationproperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ConfigurationPropertyApplicationTests {
+class ConfigurationPropertiesApplicationTests {
 
   @Test
   void contextLoads() {

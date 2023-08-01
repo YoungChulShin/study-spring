@@ -1,13 +1,13 @@
-package study.spring.configurationproperty;
+package study.spring.configurationproperties;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConfigurationPropertyApplication {
+public class ConfigurationPropertiesApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(ConfigurationPropertyApplication.class, args);
+    SpringApplication.run(ConfigurationPropertiesApplication.class, args);
   }
 
 }
