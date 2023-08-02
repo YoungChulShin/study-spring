@@ -7,24 +7,25 @@
 
 ## 매핑 설정 방법
 ### 공통 설정
-1. `build.gradle`에 dependency를 추가한다. 
-   ```groovy
-   annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-   ```
-2. `@ConfigurationPropertiesScan` 애노테이션 추가
+1. `@ConfigurationPropertiesScan` 애노테이션 추가
    ```java
    @ConfigurationPropertiesScan(basePackages = "study.spring.configurationproperties.config.model")
    ```
       
-3. 설정 정보를 저장할 클래스를 생성한다. 
+2. 설정 정보를 저장할 클래스를 생성한다. 
    - 예제에서는 MyApplicationInfo, MyApplicationInfoV2, MyApplicationInfoV3가 된다.
    - 클래스는 설정 정보와 매핑되는 필드를 가지고 있어야한다. 
    - __각 필드는 setter 또는 생성자를 통해서 값이 할당된다. 따라서 생성자를 통한 생성이 아니라면 setter를 정의해줘야한다.__
-4. 설정 클래스에 `@ConfigurationProperties` 애노테이션을 추가한다. 
+3. 설정 클래스에 `@ConfigurationProperties` 애노테이션을 추가한다. 
    ```java
    @ConfigurationProperties(prefix = "my-application")
    ```
    - `prefix` 옵션에는 `application.yaml`에서 선언한 설정 값의 prefix를 적어준다. 
+4. `build.gradle`에 dependency를 추가한다. 
+   ```groovy
+   annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+   ```
+   - 이를 통해서 application.yaml에 정의한 설정 값과 이 정보를 담을 클래스가 연결된다. yaml의 속성 정보를 보면 코드를 찾아갈 수 있고, 코드에서 정의한 정보를 읽을 수 있다. 
       
 
 ### 설정 정보를 저장하는 클래스 구현방법
