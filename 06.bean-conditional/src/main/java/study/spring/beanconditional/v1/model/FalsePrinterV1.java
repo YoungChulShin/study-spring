@@ -1,11 +1,13 @@
-package study.spring.beanconditional.model;
+package study.spring.beanconditional.v1.model;
 
-public class FalsePrinter implements BooleanPrinter {
+public class FalsePrinterV1 implements BooleanPrinterV1 {
 
   @Override
-  public void print() {
+  public String print() {
     System.out.println("================================");
     System.out.println("false");
     System.out.println("================================");
+
+    return "false";
   }
 }

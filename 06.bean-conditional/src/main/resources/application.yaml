@@ -1,0 +1,4 @@
+application:
+  printer:
+    boolean-printer:
+      v1: true
