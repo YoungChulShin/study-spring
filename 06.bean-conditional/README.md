@@ -40,3 +40,39 @@ public class TruePrinterConfiguration { }
 @ConditionalOnProperty(value = "application.printer.boolean-printer.v1", havingValue = "false")
 public class FalsePrinterConfiguration { }
 ```
+
+# V2 - Condition + Conditional
+`Condition` 인터페이스의 구현체와 `Conditional` 애노테이션을 이용하면 Bean의 활성화 여부를 설정해줄 수 있다. 
+
+## Condition 인터페이스
+`matches()` 메서드를 1개 가지는 인터페이스다. 
+```java
+@FunctionalInterface
+public interface Condition {
+	boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata);
+}
+```
+
+match라는 메서드의 값을 원하는 조건의 만족 여부로 설정할 수 있다. 여기서는 간단히 true/false로 했다. 
+```java
+public class FalsePrinterConditionV2 implements Condition {
+  @Override
+  public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    return true;
+  }
+}
+```
+
+## Conditional 애노테이션
+`Conditional` 애노테이션은 `Condtion` 타입의 value를 값으로 입력받는다. 앞에서 구현한 Condition 클래스를 여기에서 사용할 수 있다. 
+
+```java
+@Configuration
+@Conditional(FalsePrinterConditionV2.class) // Condition 클래스 사용
+public class FalsePrinterConfigurationV2 {
+  @Bean
+  public BooleanPrinterV2 booleanPrinterV2() {
+    return new FalsePrinterV2();
+  }
+}
+```
