@@ -76,3 +76,52 @@ public class FalsePrinterConfigurationV2 {
   }
 }
 ```
+
+# V3 - Condition + Conditional + MetaAnnotation
+## MetaAnnotation
+V2에서 Condition은 특정 값으로 반환 값을 선언해주었는데, 이 부분을 조금 더 유연하게 수정할 수 있다. 
+
+Annotation을 이용해서 값을 입력 받고, 그 값을 Condition의 match 함수에서 사용해보자. 
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Conditional(BooleanCondition.class)
+public @interface BooleanConditional {
+  boolean value();
+}
+```
+BooleanConditional 애노테이션은 value을 입력 값으로 가진다. 그리고 `Conditional` 애노테이션을 가지고 있다. 즉, 다른 클래스에서 Conditional 애노테이션을 대신해서 BooleanConditional을 사용할 수 있다. 
+
+## Condition
+`BooleanCondition` 은 matches 메서드에서 BooleanConditional의 `value` 값을 사용할 수 있다. 
+```java
+public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    // value 가져오기
+    MultiValueMap<String, Object> attributes = metadata.getAllAnnotationAttributes(BooleanConditional.class.getName());
+    if (attributes == null) {
+        return false;
+    }
+    Object value = attributes.getFirst("value");
+    if (value == null) {
+        return false;
+    }
+
+    // value의 값에 따라서 빈 활성화 여부 설정
+    return (Boolean)value;
+}
+```
+
+## Configuration 클래스
+Configuration 클래스는 BooleanCondition을 선언해서 사용한다. value에서 활성화 여부를 설정해준다. 
+```java
+@Configuration
+@BooleanConditional(false)
+public class TruePrinterConditionV3 {
+
+  @Bean
+  public BooleanPrinterV3 booleanPrinterV3() {
+    return new TruePrinterV3();
+  }
+}
+```
