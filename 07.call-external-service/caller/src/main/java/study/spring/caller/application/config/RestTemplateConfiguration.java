@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfiguration {
 
   @Bean
-  public RestTemplate restTemplate() {
+  public RestTemplateBuilder systemInfoRequestBuilder() {
     ObjectMapper objectMapper = new ObjectMapper();
     // 요청 데이터에는 있지만, 역질렬화 대상이 되는 클래스에는 없을 경우 에러 발생 여부 설정
     objectMapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
@@ -30,7 +30,6 @@ public class RestTemplateConfiguration {
     return new RestTemplateBuilder()
         .additionalMessageConverters(converter)
         .setConnectTimeout(Duration.ofSeconds(3))
-        .setReadTimeout(Duration.ofSeconds(5))
-        .build();
+        .setReadTimeout(Duration.ofSeconds(5));
   }
 }

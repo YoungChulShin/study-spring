@@ -1,5 +1,6 @@
 package study.spring.caller.application.v1;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ public class SystemInfoServiceV1 {
 
   private final RestTemplate restTemplate;
 
-  public SystemInfoServiceV1(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
+  public SystemInfoServiceV1(RestTemplateBuilder restTemplateBuilder) {
+    this.restTemplate = restTemplateBuilder.build();
     this.restTemplate.setErrorHandler(new SystemInfoRequestErrorHandler());
   }
 
