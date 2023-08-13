@@ -1,10 +1,11 @@
-package study.spring.callee.presentation;
+package study.spring.caller.application.model;
 
-public record SystemInfoDto(
+public record SystemInfo(
     String name,
     String description,
     String version,
     String company,
+    String country,
     Integer createdYear) {
 
 }
