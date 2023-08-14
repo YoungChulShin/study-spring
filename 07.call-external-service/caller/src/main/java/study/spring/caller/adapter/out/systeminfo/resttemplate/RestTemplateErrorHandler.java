@@ -1,4 +1,4 @@
-package study.spring.caller.application.v1;
+package study.spring.caller.adapter.out.systeminfo.resttemplate;
 
 import java.io.IOException;
 import org.slf4j.Logger;
@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
 
-public class SystemInfoRequestErrorHandler implements ResponseErrorHandler {
+class RestTemplateErrorHandler implements ResponseErrorHandler {
 
-  private final Logger logger = LoggerFactory.getLogger(SystemInfoRequestErrorHandler.class);
+  private final Logger logger = LoggerFactory.getLogger(RestTemplateErrorHandler.class);
 
   @Override
   public boolean hasError(ClientHttpResponse response) throws IOException {

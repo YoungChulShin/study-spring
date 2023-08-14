@@ -1,4 +1,4 @@
-package study.spring.caller.application.model;
+package study.spring.caller.application.port.in.model;
 
 public record SystemInfo(
     String name,
