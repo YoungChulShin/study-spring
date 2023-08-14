@@ -3,4 +3,13 @@ server:
 
 system-info:
   external-call:
-    type: resttemplate
+    type: openfeign
+
+# open feign
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 5000
+        loggerLevel: basic

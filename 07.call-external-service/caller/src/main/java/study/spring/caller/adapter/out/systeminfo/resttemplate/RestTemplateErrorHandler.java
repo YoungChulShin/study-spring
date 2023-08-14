@@ -17,6 +17,7 @@ class RestTemplateErrorHandler implements ResponseErrorHandler {
 
   @Override
   public void handleError(ClientHttpResponse response) throws IOException {
+    logger.info("RestTemplate: 에러 발생");
     if (response.getStatusCode().is5xxServerError()) {
       throw new RuntimeException("호출 중에 에러가 발생했습니다. 호출 서버에서 에러가 발생했습니다.");
     } else if (response.getStatusCode().is4xxClientError()) {

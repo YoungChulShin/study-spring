@@ -10,7 +10,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2022.0.1")
+    set('springCloudVersion', "2022.0.3")
 }
 
 // Check dependency management at https://spring.io/projects/spring-cloud
@@ -23,6 +23,8 @@ dependencyManagement {
 dependencies {
     // OpenFeign
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "io.github.openfeign:feign-okhttp"
+    implementation "io.github.openfeign:feign-httpclient"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
