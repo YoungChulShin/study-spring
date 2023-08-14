@@ -1,6 +1,9 @@
 package study.spring.caller.adapter.out.systeminfo.openfeign;
 
 
+import feign.Logger;
+import feign.Logger.Level;
+import feign.RequestInterceptor;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +21,26 @@ import org.springframework.context.annotation.Configuration;
  * Client – LoadBalancerFeignClient or default Feign client<br>
  */
 
-@ConditionalOnProperty(value = "system-info.external-call.type", havingValue = "openfeign")
 @Configuration
+@ConditionalOnProperty(value = "system-info.external-call.type", havingValue = "openfeign")
 class OpenFeignConfiguration {
 
   @Bean
   OkHttpClient client() {
     return new OkHttpClient();
+  }
+
+  /**
+   * Logger Level
+   *
+   * NONE – no logging, which is the default<br>
+   * BASIC – log only the request method, URL and response status<br>
+   * HEADERS – log the basic information together with request and response headers<br>
+   * FULL – log the body, headers and metadata for both request and response<br>
+   */
+  @Bean
+  Logger.Level feignLoggerLevel() {
+    return Level.BASIC;
   }
 
 }
