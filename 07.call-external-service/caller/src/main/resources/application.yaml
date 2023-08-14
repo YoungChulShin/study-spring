@@ -1,2 +1,6 @@
 server:
   port: 8090
+
+system-info:
+  external-call:
+    type: resttemplate

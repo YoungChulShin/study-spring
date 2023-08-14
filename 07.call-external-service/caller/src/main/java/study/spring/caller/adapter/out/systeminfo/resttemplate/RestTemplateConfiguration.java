@@ -6,12 +6,14 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.READ_UNKNOWN
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @Configuration
+@ConditionalOnProperty(value = "system-info.external-call.type", havingValue = "resttemplate")
 class RestTemplateConfiguration {
 
   @Bean
