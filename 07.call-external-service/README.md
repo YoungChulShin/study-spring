@@ -74,3 +74,145 @@ RestTemplate에서 에러가 발생했을 때, 에러를 핸들링할 수 있습
 ## WebClient
 
 ## OpenFeign
+OpenFeign을 이용하면 직접 요청하는 코드를 작성하지 않고, interface에 요청과 응답을 정의하는 방법으로 외부 호출을 할 수 있다. 
+
+### 참고 문서
+- 전체적인 feign 사용법: https://www.baeldung.com/spring-cloud-openfeign
+- fallback 설정 확인: https://velog.io/@minwest/Spring-Cloud-OpenFeign%EC%9C%BC%EB%A1%9C-API-%ED%98%B8%EC%B6%9C%ED%95%B4%EB%B3%B4%EA%B8%B0
+- timeout 설정 확인: https://pamyferret.tistory.com/72
+
+### 의존성 설정
+```groovy
+ext {
+    set('springCloudVersion', "2022.0.3")
+}
+
+// Check dependency management at https://spring.io/projects/spring-cloud
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+}
+```
+
+### OpenFeign 활성화
+main 클래스에 `@EnableFeignClients` 애노테이션을 추가해준다. 이를 통해서 OpenFeign을 사용하는 인터페이스를 스캔하게 된다. 
+
+### 요청 양식 작성
+Feign의 요청사항은 인터페이스를 이용해서 작성한다. 
+
+```java
+// FeignClient를 명시
+// - name: feign client name
+// - url: base url
+@FeignClient(   
+    value = "systeminfo",
+    url = "http://localhost:8080"
+)
+public interface OpenFeignSystemInfo extends SystemInfoPort {
+
+  @Override
+  // 스프링이 제공하는 애노테이션을 이용해서 요청을 정의해준다
+  @RequestMapping(
+      method = RequestMethod.GET,
+      value = "/api/v1/system")
+  SystemInfo getSystemInfo();
+}
+```
+
+### 설정 - 로그
+Feign에서 제공하는 로그를 사용하려면 아래 2개의 설정이 필요하다. 
+1. 로그 레벨을 DEBUG로 설정한다. 
+   ```groovy
+   logging:
+      level:
+         study.spring.caller.adapter.out.systeminfo.openfeign.OpenFeignSystemInfo: DEBUG
+   ```
+2. Feign이 제공하는 Log Level을 정의해준다. 
+   ```java
+   @Bean
+   Logger.Level feignLoggerLevel() {
+      return Level.BASIC;
+   }
+   ```
+
+Feign 로그 레벨 정보
+- NONE – no logging, which is the default
+- BASIC – log only the request method, URL and response status
+- HEADERS – log the basic information together with request and response headers
+- FULL – log the body, headers and metadata for both request and response
+
+### 설정 - 에러 핸들러
+발생하는 에러에 대해서 별도로 처리하고 싶으면 `ErrorDecoder` 인터페이스를 구현한다. 코드에서는 `OpenFeignErrorHandler` 클래스가 인터페이스를 구현한다. 
+
+```java
+@Configuration
+class OpenFeignErrorHandler implements ErrorDecoder {
+
+  private final Logger logger = LoggerFactory.getLogger(OpenFeignErrorHandler.class);
+
+  @Override
+  public Exception decode(String methodKey, Response response) {
+    logger.info("RestTemplate: 에러 발생");
+
+    HttpStatus httpStatus = HttpStatus.valueOf(response.status());
+    if (httpStatus.is5xxServerError()) {
+      throw new RuntimeException("호출 중에 에러가 발생했습니다. 호출 서버에서 에러가 발생했습니다.");
+    } else if (httpStatus.is4xxClientError()) {
+      throw new RuntimeException("호출 중에 에러가 발생했습니다. 호출 정보가 잘못되었습니다.");
+    } else {
+      throw new RuntimeException("호출 중에 에러가 발생했습니다.");
+    }
+  }
+}
+```
+
+### 설정 - Request Interceptor
+요청 정보를 가공하고 싶거나 요청 전에 추가적인 동작을 넣고 싶으면 `RequestInterceptor` 빈을 등록하면 된다. 코드에서는 `OpenFeignRequestInterceptor` 클래스를 보면 된다. 
+
+```java
+@Configuration
+class OpenFeignRequestInterceptor {
+
+  private final Logger logger = LoggerFactory.getLogger(OpenFeignRequestInterceptor.class);
+
+  @Bean
+  RequestInterceptor requestInterceptor() {
+    return requestTemplate -> {
+      logger.info("OpenFeign: 서비스 호출");    // 요청 전에 로그를 기록하고
+      requestTemplate.header("test", "test header");    // Request의 Header에 값을 추가한다
+    };
+  }
+}
+```
+
+### 설정 - Timeout 설정
+참고한 문서에서는 아래 설정을 통해서 타임아웃 설정을 할 수 있다고 하는데, 이 부분이 동작하지 않았다. 
+```yaml
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+```
+
+수정한 방법은 직접 타임아웃에 대한 빈을 설정해주는 방법으로 처리했다. 
+```java
+@Bean
+Request.Options options() {
+    return new Request.Options(
+        3L,
+        TimeUnit.SECONDS,
+        5L,
+        TimeUnit.SECONDS,
+        false);
+}
+```
+
+### 설정 - Fallback
+`OpenFeignFallback` 클래스에 관련 코드를 작성했는데, 현재 동작하지 않아서 내용을 확인 중이다. 
