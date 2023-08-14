@@ -5,16 +5,6 @@ system-info:
   external-call:
     type: openfeign
 
-# open feign
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 3000
-        readTimeout: 5000
-        loggerLevel: basic
-
-logging:
 logging:
   level:
     study.spring.caller.adapter.out.systeminfo.openfeign.OpenFeignSystemInfo: DEBUG

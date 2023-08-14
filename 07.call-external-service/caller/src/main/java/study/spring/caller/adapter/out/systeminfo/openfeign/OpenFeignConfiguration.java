@@ -3,8 +3,9 @@ package study.spring.caller.adapter.out.systeminfo.openfeign;
 
 import feign.Logger;
 import feign.Logger.Level;
-import feign.RequestInterceptor;
-import okhttp3.OkHttpClient;
+import feign.Request;
+import feign.okhttp.OkHttpClient;
+import java.util.concurrent.TimeUnit;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,16 @@ class OpenFeignConfiguration {
     return new OkHttpClient();
   }
 
+  @Bean
+  Request.Options options() {
+    return new Request.Options(
+        3L,
+        TimeUnit.SECONDS,
+        5L,
+        TimeUnit.SECONDS,
+        false);
+  }
+
   /**
    * Logger Level
    *
@@ -42,5 +53,4 @@ class OpenFeignConfiguration {
   Logger.Level feignLoggerLevel() {
     return Level.BASIC;
   }
-
 }

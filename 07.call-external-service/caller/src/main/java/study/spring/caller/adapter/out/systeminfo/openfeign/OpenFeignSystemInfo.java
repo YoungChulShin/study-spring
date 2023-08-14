@@ -9,10 +9,11 @@ import study.spring.caller.application.port.out.SystemInfoPort;
 
 @FeignClient(
     value = "systeminfo",
-    url = "http://localhost:8080"
+    url = "http://localhost:8080",
+    fallbackFactory = OpenFeignFallback.class
 )
 @ConditionalOnProperty(value = "system-info.external-call.type", havingValue = "openfeign")
-interface OpenFeignSystemInfo extends SystemInfoPort {
+public interface OpenFeignSystemInfo extends SystemInfoPort {
 
   @Override
   @RequestMapping(
