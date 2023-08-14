@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(value = "system-info.external-call.type", havingValue = "openfeign")
-class OpenFeignLoggerInterceptor {
+class OpenFeignRequestInterceptor {
 
-  private final Logger logger = LoggerFactory.getLogger(OpenFeignLoggerInterceptor.class);
+  private final Logger logger = LoggerFactory.getLogger(OpenFeignRequestInterceptor.class);
 
   @Bean
   RequestInterceptor requestInterceptor() {
