@@ -1,3 +1,4 @@
 rootProject.name = 'circuit-breaker'
 include 'uuid-service'
+include 'my-serivce'
 
