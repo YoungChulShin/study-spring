@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UUIDApplication {
+public class UuidApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(UUIDApplication.class, args);
+    SpringApplication.run(UuidApplication.class, args);
   }
 
 }
