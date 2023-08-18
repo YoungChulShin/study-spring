@@ -1,13 +1,13 @@
-package study.spring.circuitbreaker;
+package study.spring.circuitbreaker.uuid;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CircuitBreakerApplication {
+public class UUIDApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(CircuitBreakerApplication.class, args);
+    SpringApplication.run(UUIDApplication.class, args);
   }
 
 }
