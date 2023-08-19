@@ -24,17 +24,17 @@ class ExternalUUIDGenerator implements UUIDGenerator {
       name = "uuidService",
       fallbackMethod = "fallback")
   @Override
-  public UUIDData generateUUID() {
+  public String generateUUID() {
     var result = restTemplate.exchange(
         "http://localhost:8080/api/v1/uuids",
         HttpMethod.POST,
         null,
         UUIDData.class);
 
-    return result.getBody();
+    return result.getBody().uuid();
   }
 
-  private UUIDData fallback(Exception e) {
-    return new UUIDData("my-" + UUID.randomUUID());
+  private String fallback(Exception e) {
+    return "my-" + UUID.randomUUID();
   }
 }
