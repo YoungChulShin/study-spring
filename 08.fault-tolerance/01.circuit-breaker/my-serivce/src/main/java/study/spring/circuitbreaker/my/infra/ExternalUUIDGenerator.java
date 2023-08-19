@@ -1,5 +1,9 @@
 package study.spring.circuitbreaker.my.infra;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -16,6 +20,9 @@ class ExternalUUIDGenerator implements UUIDGenerator {
     this.restTemplate = restTemplateBuilder.build();
   }
 
+  @CircuitBreaker(
+      name = "uuidService",
+      fallbackMethod = "fallback")
   @Override
   public UUIDData generateUUID() {
     var result = restTemplate.exchange(
@@ -25,5 +32,9 @@ class ExternalUUIDGenerator implements UUIDGenerator {
         UUIDData.class);
 
     return result.getBody();
+  }
+
+  private UUIDData fallback(Exception e) {
+    return new UUIDData("my-" + UUID.randomUUID());
   }
 }

@@ -1,2 +1,21 @@
 server:
   port: 8090
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      # @see https://resilience4j.readme.io/docs/circuitbreaker#create-and-configure-a-circuitbreaker
+      default:
+        failureRateThreshold: 50                  # 실패율이 50%를 넘어가면 Close -> Open으로 변경된다.
+        slowCallRateThreshold: 100                # Slow call의 비율이 100%라면 Close -> Open으로 변경된다.
+        slowCallDurationThreshold: 60000          # 1분 이상의 시간이 걸리는것을 show call로 판단한다.
+        slidingWindowType: COUNT_BASED            # 갯수 기반 또는 시간(TIME_BASED)중에 선택할 수 있다
+        slidingWindowSize: 10                     # COUNT_BASED면 갯수, TIME_BASED라면 초
+        minimumNumberOfCalls: 10                  # 서킷브레이커가 동작하기 위해서는 최소한 10개의 요청을 받아야한다. 9개까지는 모두가 실패해도 회로가 차단되지 않는다.
+        waitDurationInOpenState: 20000            # Open 상태에서는 10초 대기 후에 다시 Half Open으로 변경된다
+        permittedNumberOfCallsInHalfOpenState: 10
+    instances:
+      # CircuitBreakerConfigCustomizer 를 이용해서 코드에서 override 할 수 있다.
+      uuidService:
+        baseConfig: default
+        failureRateThreshold: 60
