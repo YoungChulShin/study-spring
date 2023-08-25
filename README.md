@@ -10,4 +10,10 @@
 |05.Configuration-Properties|application.yaml에 정의한 설정정보를 클래스로 매핑하는 방법을 알아봅니다.|[link](./05.configuration-properties/)|
 |06.Bean-Conditional|Bean을 등록할 때, 조건에 따라서 등록 여부를 설정하는 방법을 알아봅니다.|[link](./06.bean-conditional/)|
 |07.Call-External-Service|스프링에서 외부 API를 호출하는 방법을 알아봅니다.<br>도구: RestTemplate, HttpClient, OpenFeign|[link](/07.call-external-service/)|
-|07.Fault-Tolerance|Fault-Tolerance 한 시스템을 구축하는 방법을 알아봅니다 .<br>예: Circuit-Breaker, Rate Limit, BulkHead|[link](/08.fault-tolerance/)|
+|08.Fault-Tolerance|Fault-Tolerance 한 시스템을 구축하는 방법을 알아봅니다 .<br>예: Circuit-Breaker, Rate Limit, BulkHead|[link](/08.fault-tolerance/)|
+
+# 백로그
+- 문서화
+- tracing
+- 메트릭 
+- message를 이용한 연동
