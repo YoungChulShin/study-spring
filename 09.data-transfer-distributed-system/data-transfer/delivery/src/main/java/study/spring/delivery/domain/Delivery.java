@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
 import lombok.Getter;
+import study.spring.delivery.domain.model.CreateDeliveryCommand;
 
 @Getter
 @Entity
@@ -31,6 +32,16 @@ public class Delivery {
   @Convert(converter = DeliveryStatusConverter.class)
   @Column(name = "status", columnDefinition = "TINYINT")
   private DeliveryStatus deliveryStatus;
+
+  protected Delivery() {
+  }
+
+  public Delivery(CreateDeliveryCommand createRequest) {
+    this.orderId = createRequest.orderId();
+    this.sourceAddress = createRequest.sourceAddress();
+    this.destinationAddress = createRequest.destinationAddress();
+    this.deliveryStatus = DeliveryStatus.CREATED;
+  }
 
   @Override
   public boolean equals(Object o) {
