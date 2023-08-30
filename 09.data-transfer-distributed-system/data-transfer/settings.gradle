@@ -1,1 +1,3 @@
 rootProject.name = 'data-transfer'
+include 'delivery'
+
