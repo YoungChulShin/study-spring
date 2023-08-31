@@ -43,6 +43,18 @@ public class Delivery {
     this.deliveryStatus = DeliveryStatus.CREATED;
   }
 
+  public void start() {
+    this.deliveryStatus = DeliveryStatus.STARTED;
+  }
+
+  public void complete() {
+    this.deliveryStatus = DeliveryStatus.COMPLETED;
+  }
+
+  public void cancel() {
+    this.deliveryStatus = DeliveryStatus.CANCELLED;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

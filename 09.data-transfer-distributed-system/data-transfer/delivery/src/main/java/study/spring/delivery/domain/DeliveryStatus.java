@@ -5,8 +5,8 @@ import java.util.Arrays;
 public enum DeliveryStatus {
 
   CREATED(10),
-  IN_PROGRESS(20),
-  DELIVERED(30),
+  STARTED(20),
+  COMPLETED(30),
   CANCELLED(40)
   ;
 
