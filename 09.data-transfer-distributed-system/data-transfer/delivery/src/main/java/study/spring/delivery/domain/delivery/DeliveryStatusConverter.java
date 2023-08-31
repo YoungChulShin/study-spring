@@ -1,4 +1,4 @@
-package study.spring.delivery.domain;
+package study.spring.delivery.domain.delivery;
 
 import jakarta.persistence.AttributeConverter;
 
