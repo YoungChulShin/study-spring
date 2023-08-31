@@ -2,7 +2,7 @@ package study.spring.delivery.adapter.out.persistence;
 
 import org.springframework.stereotype.Component;
 import study.spring.delivery.application.port.out.DeliveryReader;
-import study.spring.delivery.domain.delivery.Delivery;
+import study.spring.delivery.domain.Delivery;
 
 @Component
 class DeliveryPersistenceReader implements DeliveryReader {

@@ -2,7 +2,7 @@ package study.spring.delivery.adapter.out.persistence;
 
 import org.springframework.stereotype.Component;
 import study.spring.delivery.application.port.out.DeliveryWriter;
-import study.spring.delivery.domain.delivery.Delivery;
+import study.spring.delivery.domain.Delivery;
 
 @Component
 class DeliveryPersistenceWriter implements DeliveryWriter {

@@ -1,6 +1,6 @@
 package study.spring.delivery.application.port.in;
 
-import study.spring.delivery.domain.delivery.model.CreateDeliveryCommand;
+import study.spring.delivery.domain.model.CreateDeliveryCommand;
 
 public interface DeliveryUseCase {
 

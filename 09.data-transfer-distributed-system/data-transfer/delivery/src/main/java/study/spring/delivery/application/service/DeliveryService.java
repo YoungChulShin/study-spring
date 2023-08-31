@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import study.spring.delivery.application.port.in.DeliveryUseCase;
 import study.spring.delivery.application.port.out.DeliveryReader;
 import study.spring.delivery.application.port.out.DeliveryWriter;
-import study.spring.delivery.domain.delivery.Delivery;
-import study.spring.delivery.domain.delivery.model.CreateDeliveryCommand;
+import study.spring.delivery.domain.Delivery;
+import study.spring.delivery.domain.model.CreateDeliveryCommand;
 
 @Service
 class DeliveryService implements DeliveryUseCase {

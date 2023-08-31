@@ -1,4 +1,4 @@
-package study.spring.delivery.domain.delivery;
+package study.spring.delivery.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
 import lombok.Getter;
-import study.spring.delivery.domain.delivery.model.CreateDeliveryCommand;
+import study.spring.delivery.domain.model.CreateDeliveryCommand;
 
 @Getter
 @Entity
