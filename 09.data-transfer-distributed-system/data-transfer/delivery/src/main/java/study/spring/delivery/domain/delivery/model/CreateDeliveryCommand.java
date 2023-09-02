@@ -1,4 +1,4 @@
-package study.spring.delivery.domain.model;
+package study.spring.delivery.domain.delivery.model;
 
 import lombok.Getter;
 
