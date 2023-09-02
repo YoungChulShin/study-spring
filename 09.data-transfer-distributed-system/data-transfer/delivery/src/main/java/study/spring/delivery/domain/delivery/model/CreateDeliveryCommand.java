@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public record CreateDeliveryCommand(
-    Long orderId,
+    String orderNumber,
     String sourceAddress,
     String destinationAddress) {
 

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 import lombok.Getter;
 
@@ -37,4 +38,31 @@ public class PersistentEvent {
   @Column(name = "published_at", columnDefinition = "TIMESTAMP")
   private Instant publishedAt;
 
+  protected PersistentEvent() {
+  }
+
+  public PersistentEvent(PersistentEventType eventType, UUID eventID, String body) {
+    this.eventType = eventType;
+    this.eventID = eventID;
+    this.body = body;
+    this.status = PersistentEventStatus.CREATED;
+    this.createdAt = Instant.now();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PersistentEvent that = (PersistentEvent) o;
+    return Objects.equals(id, that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(PersistentEvent.class);
+  }
 }

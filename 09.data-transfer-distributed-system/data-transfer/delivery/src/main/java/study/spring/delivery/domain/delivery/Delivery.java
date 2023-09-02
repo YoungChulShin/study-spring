@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.Getter;
 import study.spring.delivery.domain.delivery.model.CreateDeliveryCommand;
 
@@ -20,8 +21,11 @@ public class Delivery {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "order_id")
-  private Long orderId;
+  @Column(name = "delivery_number")
+  private String deliveryNumber;
+
+  @Column(name = "order_number")
+  private String orderNumber;
 
   @Column(name = "source_address")
   private String sourceAddress;
@@ -37,7 +41,8 @@ public class Delivery {
   }
 
   public Delivery(CreateDeliveryCommand createRequest) {
-    this.orderId = createRequest.orderId();
+    this.deliveryNumber = UUID.randomUUID().toString();
+    this.orderNumber = createRequest.getOrderNumber();
     this.sourceAddress = createRequest.sourceAddress();
     this.destinationAddress = createRequest.destinationAddress();
     this.deliveryStatus = DeliveryStatus.CREATED;
@@ -76,7 +81,8 @@ public class Delivery {
   public String toString() {
     return "Delivery{" +
         "id=" + id +
-        ", orderId=" + orderId +
+        ", deliveryNumber=" + deliveryNumber +
+        ", orderNumber=" + orderNumber +
         ", sourceAddress='" + sourceAddress + '\'' +
         ", destinationAddress='" + destinationAddress + '\'' +
         ", deliveryStatus=" + deliveryStatus +

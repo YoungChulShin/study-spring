@@ -46,7 +46,7 @@ class DeliveryService implements DeliveryUseCase {
     }
 
     delivery.complete();
-    persistentEventService.create(delivery, PersistentEventType.DELIVERY_COMPLETED);
+    persistentEventService.create(PersistentEventType.DELIVERY_COMPLETED, delivery);
   }
 
   @Override
