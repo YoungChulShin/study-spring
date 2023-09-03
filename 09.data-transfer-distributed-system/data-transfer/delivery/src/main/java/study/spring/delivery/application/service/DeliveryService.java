@@ -22,7 +22,10 @@ class DeliveryService implements DeliveryUseCase {
   @Transactional
   public Long create(CreateDeliveryCommand createRequest) {
     var delivery = new Delivery(createRequest);
+
     delivery = deliveryWriter.save(delivery);
+    persistentEventService.create(PersistentEventType.DELIVERY_CREATED, delivery);
+
     return delivery.getId();
   }
 
@@ -35,6 +38,7 @@ class DeliveryService implements DeliveryUseCase {
     }
 
     delivery.start();
+    persistentEventService.create(PersistentEventType.DELIVERY_STARTED, delivery);
   }
 
   @Override
@@ -58,5 +62,6 @@ class DeliveryService implements DeliveryUseCase {
     }
 
     delivery.cancel();
+    persistentEventService.create(PersistentEventType.DELIVERY_CANCELLED, delivery);
   }
 }

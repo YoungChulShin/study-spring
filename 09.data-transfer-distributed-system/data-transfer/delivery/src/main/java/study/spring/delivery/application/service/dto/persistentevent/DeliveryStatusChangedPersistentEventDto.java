@@ -7,24 +7,24 @@ import study.spring.delivery.domain.delivery.DeliveryStatus;
 import study.spring.delivery.domain.persistentevent.PersistentEventType;
 
 @Getter
-public class DeliveryCompletedPersistentEventDto extends BasePersistentEventDto {
+public class DeliveryStatusChangedPersistentEventDto extends BasePersistentEventDto {
 
   @JsonProperty("body")
-  private final DeliveryCompletedPersistentEventBodyDto body;
+  private final DeliveryStatusChangedPersistentEventBodyDto body;
 
-  public DeliveryCompletedPersistentEventDto(Delivery delivery) {
+  public DeliveryStatusChangedPersistentEventDto(Delivery delivery) {
     super(PersistentEventType.DELIVERY_COMPLETED);
-    this.body = new DeliveryCompletedPersistentEventBodyDto(delivery);
+    this.body = new DeliveryStatusChangedPersistentEventBodyDto(delivery);
   }
 
   @Getter
-  private static class DeliveryCompletedPersistentEventBodyDto {
+  private static class DeliveryStatusChangedPersistentEventBodyDto {
 
     private final String deliveryNumber;
     private final String orderNumber;
     private final DeliveryStatus deliveryStatus;
 
-    public DeliveryCompletedPersistentEventBodyDto(Delivery delivery) {
+    public DeliveryStatusChangedPersistentEventBodyDto(Delivery delivery) {
       this.deliveryNumber = delivery.getDeliveryNumber();
       this.orderNumber = delivery.getOrderNumber();
       this.deliveryStatus = delivery.getDeliveryStatus();
