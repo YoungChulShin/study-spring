@@ -12,8 +12,8 @@ public class DeliveryStatusChangedPersistentEventDto extends BasePersistentEvent
   @JsonProperty("body")
   private final DeliveryStatusChangedPersistentEventBodyDto body;
 
-  public DeliveryStatusChangedPersistentEventDto(Delivery delivery) {
-    super(PersistentEventType.DELIVERY_COMPLETED);
+  public DeliveryStatusChangedPersistentEventDto(PersistentEventType eventType, Delivery delivery) {
+    super(eventType);
     this.body = new DeliveryStatusChangedPersistentEventBodyDto(delivery);
   }
 

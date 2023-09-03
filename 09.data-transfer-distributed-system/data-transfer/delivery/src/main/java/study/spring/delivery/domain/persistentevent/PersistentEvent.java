@@ -2,6 +2,8 @@ package study.spring.delivery.domain.persistentevent;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,16 +22,18 @@ public class PersistentEvent {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "event_type", nullable = false)
+  @Column(name = "event_type", nullable = false, columnDefinition = "VARCHAR", length = 40)
+  @Enumerated(EnumType.STRING)
   private PersistentEventType eventType;
 
   @Column(name = "event_id", nullable = false)
-  private UUID eventID;
+  private String eventID;
 
   @Column(name = "body", nullable = false)
   private String body;
 
-  @Column(name = "status", nullable = false)
+  @Column(name = "status", nullable = false, columnDefinition = "VARCHAR", length = 40)
+  @Enumerated(EnumType.STRING)
   private PersistentEventStatus status;
 
   @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
@@ -43,7 +47,7 @@ public class PersistentEvent {
 
   public PersistentEvent(PersistentEventType eventType, UUID eventID, String body) {
     this.eventType = eventType;
-    this.eventID = eventID;
+    this.eventID = eventID.toString();
     this.body = body;
     this.status = PersistentEventStatus.CREATED;
     this.createdAt = Instant.now();

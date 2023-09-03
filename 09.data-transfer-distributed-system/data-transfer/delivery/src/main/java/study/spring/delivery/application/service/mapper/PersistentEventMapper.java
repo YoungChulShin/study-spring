@@ -15,7 +15,7 @@ public class PersistentEventMapper {
   private final ObjectMapper objectMapper;
 
   public PersistentEvent toEntity(PersistentEventType eventType, Delivery delivery) {
-    var eventDto = new DeliveryStatusChangedPersistentEventDto(delivery);
+    var eventDto = new DeliveryStatusChangedPersistentEventDto(eventType, delivery);
     String body;
     try {
       body = objectMapper.writeValueAsString(eventDto);
