@@ -42,7 +42,7 @@ public class Delivery {
 
   public Delivery(CreateDeliveryCommand createRequest) {
     this.deliveryNumber = UUID.randomUUID().toString();
-    this.orderNumber = createRequest.getOrderNumber();
+    this.orderNumber = createRequest.orderNumber();
     this.sourceAddress = createRequest.sourceAddress();
     this.destinationAddress = createRequest.destinationAddress();
     this.deliveryStatus = DeliveryStatus.CREATED;
