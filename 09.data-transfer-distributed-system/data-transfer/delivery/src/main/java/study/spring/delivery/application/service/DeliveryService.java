@@ -16,7 +16,7 @@ class DeliveryService implements DeliveryUseCase {
 
   private final DeliveryWriter deliveryWriter;
   private final DeliveryReader deliveryReader;
-  private final PersistentEventService persistentEventService;
+  private final PersistentEventCreateService persistentEventService;
 
   @Override
   @Transactional

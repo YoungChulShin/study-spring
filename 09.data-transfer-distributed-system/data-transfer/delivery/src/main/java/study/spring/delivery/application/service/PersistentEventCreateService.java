@@ -10,7 +10,7 @@ import study.spring.delivery.domain.persistentevent.PersistentEventType;
 
 @Service
 @RequiredArgsConstructor
-public class PersistentEventService {
+public class PersistentEventCreateService {
 
   private final PersistentEventMapper mapper;
   private final PersistentEventWriter writer;

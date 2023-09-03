@@ -53,6 +53,11 @@ public class PersistentEvent {
     this.createdAt = Instant.now();
   }
 
+  public void published() {
+    this.publishedAt = Instant.now();
+    this.status = PersistentEventStatus.PUBLISHED;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
