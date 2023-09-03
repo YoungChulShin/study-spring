@@ -1,4 +1,4 @@
-package study.spring.delivery.adapter.out.persistence.delivery;
+package study.spring.delivery.adapter.out.delivery;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import study.spring.delivery.domain.delivery.Delivery;

@@ -1,4 +1,4 @@
-package study.spring.delivery.adapter.out.persistence.persistentevent;
+package study.spring.delivery.adapter.out.persistentevent;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package study.spring.delivery.adapter.out.persistence.delivery;
+package study.spring.delivery.adapter.out.delivery;
 
 import org.springframework.stereotype.Component;
 import study.spring.delivery.application.port.out.DeliveryWriter;
