@@ -11,7 +11,7 @@ class PersistentEventTransmitTask {
 
   private final PersistentEventTransmitUseCase persistentEventTransmitUseCase;
 
-  @Scheduled(cron = "0/10 * * * * *")
+  @Scheduled(cron = "0 * * * * *")
   void transmitPersistentEvents() {
     persistentEventTransmitUseCase.transmitPersistentEvents();
   }

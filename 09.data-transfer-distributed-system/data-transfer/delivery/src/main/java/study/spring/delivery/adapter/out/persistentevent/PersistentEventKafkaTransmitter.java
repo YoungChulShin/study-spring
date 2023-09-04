@@ -18,7 +18,7 @@ class PersistentEventKafkaTransmitter implements PersistentEventTransmitter {
   private final PersistentEventJpaRepository persistentEventRepository;
 
   public PersistentEventKafkaTransmitter(
-      @Value("${persistent-event.transmitter.kafka.topic-name") String topicName,
+      @Value("${persistent-event.transmitter.kafka.topic-name}") String topicName,
       KafkaTemplate<String, String> kafkaTemplate,
       PersistentEventJpaRepository persistentEventRepository) {
     this.topicName = topicName;
