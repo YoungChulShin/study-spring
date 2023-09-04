@@ -6,6 +6,6 @@ import study.spring.delivery.domain.persistentevent.PersistentEvent;
 
 public interface PersistentEventJpaRepository extends JpaRepository<PersistentEvent, Long> {
 
-  List<PersistentEvent> findByPublishedAtIsNullOOrderById();
+  List<PersistentEvent> findByPublishedAtIsNullOrderById();
 
 }

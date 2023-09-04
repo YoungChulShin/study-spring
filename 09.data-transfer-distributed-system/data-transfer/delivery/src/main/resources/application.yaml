@@ -12,3 +12,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+persistent-event:
+  transmitter:
+    kafka:
+      topic-name: delivery-events

@@ -1,6 +1,5 @@
 package study.spring.delivery.application.service;
 
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,8 @@ public class PersistentEventTransmitService implements PersistentEventTransmitUs
   private final PersistentEventTransmitter transmitter;
 
   @Override
-  @Transactional
   public void transmitPersistentEvents() {
     List<PersistentEvent> events = reader.findUnPublishedEvents();
-    events.forEach(event -> {
-      boolean result = transmitter.transmit(event);
-      if (result) {
-        event.published();
-      }
-    });
+    events.forEach(transmitter::transmit);
   }
 }

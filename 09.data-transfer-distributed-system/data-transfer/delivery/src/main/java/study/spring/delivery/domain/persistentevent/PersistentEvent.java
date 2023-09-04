@@ -27,7 +27,7 @@ public class PersistentEvent {
   private PersistentEventType eventType;
 
   @Column(name = "event_id", nullable = false)
-  private String eventID;
+  private String eventId;
 
   @Column(name = "body", nullable = false)
   private String body;
@@ -45,9 +45,9 @@ public class PersistentEvent {
   protected PersistentEvent() {
   }
 
-  public PersistentEvent(PersistentEventType eventType, UUID eventID, String body) {
+  public PersistentEvent(PersistentEventType eventType, UUID eventId, String body) {
     this.eventType = eventType;
-    this.eventID = eventID.toString();
+    this.eventId = eventId.toString();
     this.body = body;
     this.status = PersistentEventStatus.CREATED;
     this.createdAt = Instant.now();

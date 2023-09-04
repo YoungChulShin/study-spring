@@ -14,6 +14,6 @@ public class PersistentEventPersistenceReader implements PersistentEventReader {
 
   @Override
   public List<PersistentEvent> findUnPublishedEvents() {
-    return repository.findByPublishedAtIsNullOOrderById();
+    return repository.findByPublishedAtIsNullOrderById();
   }
 }
