@@ -9,30 +9,33 @@ import org.springframework.transaction.annotation.Transactional;
 import study.backend.java.database.application.port.in.SchoolUseCase;
 import study.backend.java.database.application.port.in.model.SchoolInfo;
 import study.backend.java.database.application.port.in.model.StudentInfo;
-import study.backend.java.database.application.port.out.SchoolPort;
+import study.backend.java.database.application.port.out.SchoolReader;
+import study.backend.java.database.application.port.out.SchoolWriter;
 import study.backend.java.database.domain.School;
 
 @Service
 class SchoolService implements SchoolUseCase {
 
-  private final SchoolPort schoolPort;
+  private final SchoolWriter schoolWriter;
+  private final SchoolReader schoolReader;
 
-  public SchoolService(SchoolPort schoolPort) {
-    this.schoolPort = schoolPort;
+  public SchoolService(SchoolWriter schoolWriter, SchoolReader schoolReader) {
+    this.schoolWriter = schoolWriter;
+    this.schoolReader = schoolReader;
   }
 
   @Override
   @Transactional
   public Long addSchool(String name) {
     School initSchool = new School(name);
-    School school = schoolPort.save(initSchool);
+    School school = schoolWriter.save(initSchool);
     return school.getId();
   }
 
   @Override
   @Transactional(readOnly = true)
   public School getSchool(Long id) {
-    return schoolPort.findById(id);
+    return schoolReader.findById(id);
   }
 
   @Override
@@ -43,7 +46,7 @@ class SchoolService implements SchoolUseCase {
   @Override
   @Transactional(readOnly = true)
   public Page<StudentInfo> findStudents(Long schoolId, Pageable pageable) {
-    return schoolPort.findStudents(schoolId, pageable);
+    return schoolReader.findStudents(schoolId, pageable);
   }
 
   @Override
@@ -69,7 +72,7 @@ class SchoolService implements SchoolUseCase {
   }
 
   private List<SchoolInfo> findSchoolsByEntity() {
-    List<School> schools = schoolPort.findAll();
+    List<School> schools = schoolReader.findAll();
     return schools.stream()
         .map(school -> new SchoolInfo(
             school.getId(),
@@ -85,7 +88,7 @@ class SchoolService implements SchoolUseCase {
   }
 
   private List<SchoolInfo> findSchoolsFetchJoin() {
-    List<School> schools = schoolPort.findAllWithStudents();
+    List<School> schools = schoolReader.findAllWithStudents();
     return schools.stream()
         .map(school -> new SchoolInfo(
             school.getId(),
@@ -101,6 +104,6 @@ class SchoolService implements SchoolUseCase {
   }
 
   private List<SchoolInfo> findSchoolsQuerydsl() {
-    return schoolPort.findAllSchoolInfos();
+    return schoolReader.findAllSchoolInfos();
   }
 }

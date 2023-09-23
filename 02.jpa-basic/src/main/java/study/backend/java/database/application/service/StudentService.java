@@ -4,28 +4,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.backend.java.database.application.port.in.StudentUseCase;
 import study.backend.java.database.application.port.in.model.StudentInfo;
-import study.backend.java.database.application.port.out.SchoolPort;
-import study.backend.java.database.application.port.out.StudentPort;
+import study.backend.java.database.application.port.out.SchoolReader;
+import study.backend.java.database.application.port.out.StudentRerader;
+import study.backend.java.database.application.port.out.StudentWriter;
 import study.backend.java.database.domain.School;
 import study.backend.java.database.domain.Student;
 
 @Service
 class StudentService implements StudentUseCase {
 
-  private final StudentPort studentPort;
-  private final SchoolPort schoolPort;
+  private final StudentWriter studentWriter;
+  private final StudentRerader studentRerader;
+  private final SchoolReader schoolReader;
 
-  public StudentService(StudentPort studentPort, SchoolPort schoolPort) {
-    this.studentPort = studentPort;
-    this.schoolPort = schoolPort;
+  public StudentService(
+      StudentWriter studentWriter,
+      StudentRerader studentRerader,
+      SchoolReader schoolReader) {
+    this.studentWriter = studentWriter;
+    this.studentRerader = studentRerader;
+    this.schoolReader = schoolReader;
   }
 
   @Override
   @Transactional
   public Long addStudent(String name, Integer age, Long schoolId) {
-    School school = schoolPort.findById(schoolId);
+    School school = schoolReader.findById(schoolId);
     Student initStudent = new Student(name, age, school);
-    Student student = studentPort.save(initStudent);
+    Student student = studentWriter.save(initStudent);
 
     return student.getId();
   }
@@ -50,6 +56,6 @@ class StudentService implements StudentUseCase {
     // join schools s2_0 on s1_0.school_id = s2_0.id
     // where s1_0.id = 1;
 
-    return studentPort.findStudent(id);
+    return studentRerader.findStudent(id);
   }
 }

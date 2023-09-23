@@ -3,12 +3,13 @@ package study.backend.java.database.adapter.out.persistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import study.backend.java.database.application.port.in.model.StudentInfo;
-import study.backend.java.database.application.port.out.StudentPort;
+import study.backend.java.database.application.port.out.StudentRerader;
+import study.backend.java.database.application.port.out.StudentWriter;
 import study.backend.java.database.domain.Student;
 
 @Repository
 @RequiredArgsConstructor
-class StudentPersistenceAdapter implements StudentPort {
+class StudentPersistenceAdapter implements StudentWriter, StudentRerader {
 
   private final StudentJpaRepository studentJpaRepository;
 

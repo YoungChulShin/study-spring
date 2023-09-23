@@ -7,12 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import study.backend.java.database.application.port.in.model.SchoolInfo;
 import study.backend.java.database.application.port.in.model.StudentInfo;
-import study.backend.java.database.application.port.out.SchoolPort;
+import study.backend.java.database.application.port.out.SchoolReader;
+import study.backend.java.database.application.port.out.SchoolWriter;
 import study.backend.java.database.domain.School;
 
 @Repository
 @RequiredArgsConstructor
-class SchoolPersistenceAdapter implements SchoolPort {
+class SchoolPersistenceAdapter implements SchoolWriter, SchoolReader {
 
   private final SchoolJpaRepository schoolJpaRepository;
 

@@ -6,11 +6,8 @@ import org.springframework.data.domain.Pageable;
 import study.backend.java.database.application.port.in.model.SchoolInfo;
 import study.backend.java.database.application.port.in.model.StudentInfo;
 import study.backend.java.database.domain.School;
-import study.backend.java.database.domain.Student;
 
-public interface SchoolPort {
-
-  School save(School school);
+public interface SchoolReader {
 
   School findById(Long id);
 
