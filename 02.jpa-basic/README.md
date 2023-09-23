@@ -68,6 +68,21 @@ QuerydslRepositorySupport
 Entity가 아닌 Custom Class를 응답하도록 처리
 - `ckend.java.database.adapter.out.persistenceStudentJpaRepositoryImpl#findStudent` 코드를 참고한다
 
+## 기타 Application Code
+### 페이징 설정
+inbound web adapter
+- `size`, `page number` 값을 입력 받는다.
+
+inbound port
+- 페이징 쿼리가 필요할 경우 `Pageable` 인터페이스를 전달 받는다.
+- `inbound web adapter`에서는 `PageRequest.of` 메서드를 이용해서 Pageable 인터페이스의 구현체 `PageRequest` 클래스를 생성한다.   
+
+outbound persistence adapter
+- querydsl에서는 `QuerydslRepositorySupport` 클래스를 상속받으면 `Querydsl` 클래스 인스턴스에 접근할 수 있는데, 이 클래스는 querydsl을 위한 helper 메서드를 제공한다. 
+   - `applyPagination` 메서드를 이용한 `Pageable` 인터페이스를 이용해서 페이징 쿼리를 구현할 수 있다.
+   - 내부적으로는 query에 limit과 offset을 적용한다.  
+
+
 ### 참고 링크
 querydsl 정리: https://github.com/YoungChulShin/TIL/tree/master/Spring/05.JPA/Querydsl
 
