@@ -2,8 +2,11 @@ package study.backend.java.database.adapter.out.persistence;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import study.backend.java.database.application.port.in.model.SchoolInfo;
+import study.backend.java.database.application.port.in.model.StudentInfo;
 import study.backend.java.database.application.port.out.SchoolPort;
 import study.backend.java.database.domain.School;
 
@@ -21,6 +24,16 @@ class SchoolPersistenceAdapter implements SchoolPort {
   @Override
   public School findById(Long id) {
     return schoolJpaRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public List<StudentInfo> findStudents(Long schoolId) {
+    return schoolJpaRepository.findStudents(schoolId);
+  }
+
+  @Override
+  public Page<StudentInfo> findStudents(Long schoolId, Pageable pageable) {
+    return schoolJpaRepository.findStudents(schoolId, pageable);
   }
 
   @Override

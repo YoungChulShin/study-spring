@@ -2,6 +2,8 @@ package study.backend.java.database.application.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.backend.java.database.application.port.in.SchoolUseCase;
@@ -34,17 +36,14 @@ class SchoolService implements SchoolUseCase {
   }
 
   @Override
-  @Transactional(readOnly = true)
   public List<StudentInfo> findStudents(Long schoolId) {
-    School school = schoolPort.findById(schoolId);
+    return null;
+  }
 
-    return school.getStudents().stream()
-        .map(student -> new StudentInfo(
-            student.getId(),
-            student.getName(),
-            student.getAge(),
-            student.getSchool().getName()))
-        .collect(Collectors.toList());
+  @Override
+  @Transactional(readOnly = true)
+  public Page<StudentInfo> findStudents(Long schoolId, Pageable pageable) {
+    return schoolPort.findStudents(schoolId, pageable);
   }
 
   @Override

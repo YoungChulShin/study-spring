@@ -11,7 +11,7 @@ public class CommonResponse<T> {
 
   private final Integer page;
   private final Integer size;
-  private final Integer totalElements;
+  private final Long totalElements;
   private final Integer totalPages;
 
   private final String errorMessage;
