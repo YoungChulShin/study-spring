@@ -6,38 +6,77 @@ import lombok.Getter;
 public class CommonResponse<T> {
 
   private final Result result;
+
   private final T data;
-  private final String message;
+
+  private final Integer page;
+  private final Integer size;
+  private final Integer totalElements;
+  private final Integer totalPages;
+
+  private final String errorMessage;
   private final String errorCode;
 
-  private CommonResponse(Result result, T data, String message, String errorCode) {
+  private CommonResponse(
+      Result result,
+      T data,
+      String errorMessage,
+      String errorCode) {
     this.result = result;
     this.data = data;
-    this.message = message;
+
+    boolean hasPage = data instanceof PageDto;
+    this.page = hasPage ? ((PageDto) data).page() : null;
+    this.size = hasPage ? ((PageDto) data).size(): null;
+    this.totalElements = hasPage ? ((PageDto) data).totalElements() : null;
+    this.totalPages = hasPage ? ((PageDto) data).totalPages() : null;
+
+    this.errorMessage = errorMessage;
     this.errorCode = errorCode;
   }
 
-  public static <T> CommonResponse<T> success(T data, String message) {
-    return new CommonResponse<>(
-        Result.SUCCESS,
-        data,
-        message,
-        null);
+  private CommonResponse(
+      Result result,
+      T  data,
+      PageDto pageInfo,
+      String errorMessage,
+      String errorCode) {
+    this.result = result;
+    this.data = data;
+    this.page = pageInfo != null ? pageInfo.page() : null;
+    this.size = pageInfo != null ? pageInfo.size() : null;
+    this.totalElements = pageInfo != null ? pageInfo.totalElements() : null;
+    this.totalPages = pageInfo != null ? pageInfo.totalPages() : null;
+    this.errorMessage = errorMessage;
+    this.errorCode = errorCode;
   }
 
   public static <T> CommonResponse<T> success(T data) {
-    return CommonResponse.success(data, null);
+    return new CommonResponse<>(
+        Result.SUCCESS,
+        data,
+        null,
+        null);
+  }
+
+  public static <T> CommonResponse<T> success(T data, PageDto pageInfo) {
+    return new CommonResponse<>(
+        Result.SUCCESS,
+        data,
+        pageInfo,
+        null,
+        null);
   }
 
   public static <T> CommonResponse<T> success() {
-    return CommonResponse.success(null, null);
+    return CommonResponse.success(null);
   }
 
-  public static <T> CommonResponse<T> fail(String message, String errorCode) {
+  public static <T> CommonResponse<T> fail(String errorMessage, String errorCode) {
     return new CommonResponse<>(
         Result.FAIL,
         null,
-        message,
+        errorMessage,
         errorCode);
   }
 
@@ -53,5 +92,4 @@ public class CommonResponse<T> {
     SUCCESS,
     FAIL
   }
-
 }
