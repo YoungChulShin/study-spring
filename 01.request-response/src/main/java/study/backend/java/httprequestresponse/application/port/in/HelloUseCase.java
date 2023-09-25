@@ -1,6 +1,9 @@
 package study.backend.java.httprequestresponse.application.port.in;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface HelloUseCase {
 
-  String hello(String name);
+  @NotNull
+  String hello(@NotNull String name);
 }

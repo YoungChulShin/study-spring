@@ -1,5 +1,7 @@
 package study.backend.java.httprequestresponse.common.response;
 
+import jakarta.validation.ConstraintDeclarationException;
+import jakarta.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,20 @@ public class CommonExceptionHandler {
     }
 
     return CommonResponse.fail(e.getMessage(), e.getErrorCode().name());
+  }
+
+  @ResponseStatus(value = HttpStatus.OK)
+  @ExceptionHandler(value = {IllegalArgumentException.class})
+  public CommonResponse handleIllegalArgumentException(IllegalArgumentException e) {
+    log.error("올바르지 않은 데이터가 확인되었습니다: " + e.getMessage(), e);
+    return CommonResponse.fail(e.getMessage(), ErrorCode.COMMON_INVALID_PARAMETER.toString());
+  }
+
+  @ResponseStatus(value = HttpStatus.OK)
+  @ExceptionHandler(value = {ConstraintViolationException.class})
+  public CommonResponse handleValidationException(ConstraintViolationException e) {
+    log.error("올바르지 않은 데이터가 확인되었습니다: " + e.getMessage(), e);
+    return CommonResponse.fail(e.getMessage(), ErrorCode.COMMON_INVALID_PARAMETER.toString());
   }
 
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
