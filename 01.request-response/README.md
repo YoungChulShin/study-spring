@@ -55,6 +55,15 @@
 - `jakarta.validation.constraints`에서 사용가능한 애노테이션을 확인 가능하다.
 - Request 클래스 내에 하위 클래스가 있고, 하위 클래스에도 validation을 적용하고 싶다면, 하위 클래스를 선언하는 곳에 `Valid`를 추가해준다
 
+### Application Layer Validation
+JavaBean validation
+- Service Layer에서 JavaBean validation을 진행하기 위해서는 명시적으로 `@Validated` 애노테이션을 선언해줘야한다.
+- validation을 통과하지 못하면 `jakarta.validation.ConstraintViolationException` 예외를 throw한다.  
+
+Assert validation
+- `org.springframework.util.Assert`가 제공하는 validation을 적용해볼 수 도 있다.
+- validation을 통과하지 못하면 `IllegalArgumentException`을 throw한다. 
+
 ## Request & Response 로깅
 설명
 - Request와 Response를 로깅한다.
