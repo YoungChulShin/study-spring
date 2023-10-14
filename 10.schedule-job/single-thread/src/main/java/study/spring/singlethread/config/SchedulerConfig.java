@@ -1,4 +1,4 @@
-package study.spring.singlethread;
+package study.spring.singlethread.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
