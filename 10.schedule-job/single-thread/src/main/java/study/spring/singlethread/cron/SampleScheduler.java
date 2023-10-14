@@ -80,10 +80,10 @@ public class SampleScheduler {
   [scheduling-1](2023-10-14T21:30:22.948420) 5초마다 실행
   [scheduling-1](2023-10-14T21:30:27.944368) 5초마다 실행
    */
-  @Scheduled(fixedRate = 5000, initialDelay = 3000)
-  public void cronTask() {
-    printLog("5초마다 실행");
-  }
+//  @Scheduled(fixedRate = 5000, initialDelay = 3000)
+//  public void cronTask() {
+//    printLog("5초마다 실행");
+//  }
 
   /*
   fixedRate보다 작업의 실행시간이 긴 경우에는 마지막 메서드가 종료되면 바로 실행된다.

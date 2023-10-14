@@ -96,12 +96,12 @@ public class SampleScheduler {
   [pool-2-thread-3](2023-10-14T22:03:06.995722) 5초 이후에 실행 - 시작
   [pool-2-thread-3](2023-10-14T22:03:15.000884) 5초 이후에 실행 - 종료
    */
-  @Scheduled(fixedRate = 5000, initialDelay = 3000)
-  public void longCronTask() throws InterruptedException {
-    printLog("5초 이후에 실행 - 시작");
-    Thread.sleep(8000);
-    printLog("5초 이후에 실행 - 종료");
-  }
+//  @Scheduled(fixedRate = 5000, initialDelay = 3000)
+//  public void longCronTask() throws InterruptedException {
+//    printLog("5초 이후에 실행 - 시작");
+//    Thread.sleep(8000);
+//    printLog("5초 이후에 실행 - 종료");
+//  }
 
   public void printLog(String message) {
     System.out.println("[" + Thread.currentThread().getName() + "](" + LocalDateTime.now() + ") " + message);
