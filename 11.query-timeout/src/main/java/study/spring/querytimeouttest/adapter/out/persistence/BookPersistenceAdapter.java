@@ -21,6 +21,6 @@ public class BookPersistenceAdapter implements BookWriter, BookReader {
 
   @Override
   public List<Book> findAll() {
-    return repository.findAll();
+    return repository.findBookByPublishedAtBetween();
   }
 }

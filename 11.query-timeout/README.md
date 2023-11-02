@@ -1,4 +1,8 @@
 
+# 참고 문서
+- naver 타임아웃 설명: https://d2.naver.com/helloworld/1321
+- socketTimeout 설명: https://knight76.tistory.com/entry/mysql-jdbc-driver-url%EC%9D%98-connectTimeout%EA%B3%BC-socketTimeout
+
 # 테스트
 ## 테스트 케이스 - spring.jpa.properties.jakarta.persistence.query.timeout 설정
 동작
@@ -16,3 +20,23 @@
 2.x 버전
 - `spring.jpa.properties.javax.persistence.query.timeout` 옵션을 사용한다.
 
+## 테스트 케이스 - socketTimeout 설정
+socketTimeout 에러
+- 서버와 DB가 연결된 이후에 일정 시간동안 DB에서 서버로 데이터가 전달되지 않으면 발생한다.
+
+socketTimeout 설정
+- jdbc url에 `socketTimeout`을 추가해서 설정할 수 있다. 
+- 단위는 ms이다. 
+
+에러 정보
+- org.springframework.dao.DataAccessResourceFailureException 이 발생한다. 
+- error stack trace
+   - org.springframework.dao.DataAccessResourceFailureException: JDBC exception executing SQL [select b1_0.id,b1_0.author,b1_0.name,b1_0.published_at from books b1_0 where b1_0.published_at between '2023-11-02 10:09:46.133499' and '2023-11-02 10:09:55.099997'] [Communications link failure 
+      - The last packet successfully received from the server was 11,054 milliseconds ago. The last packet sent successfully to the server was 11,056 milliseconds ago.] [n/a]
+   - org.hibernate.exception.JDBCConnectionException: JDBC exception executing SQL [select b1_0.id,b1_0.author,b1_0.name,b1_0.published_at from books b1_0 where b1_0.published_at between '2023-11-02 10:09:46.133499' and '2023-11-02 10:09:55.099997'] [Communications link failure 
+      - The last packet successfully received from the server was 11,054 milliseconds ago. The last packet sent successfully to the server was 11,056 milliseconds ago.] [n/a]
+   - com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure 
+      - The last packet successfully received from the server was 11,054 milliseconds ago. The last packet sent successfully to the server was 11,056 milliseconds ago.
+   - com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure 
+      - The last packet successfully received from the server was 11,054 milliseconds ago. The last packet sent successfully to the server was 11,056 milliseconds ago.
+   - java.net.SocketTimeoutException: Read timed out
