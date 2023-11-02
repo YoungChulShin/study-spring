@@ -9,6 +9,11 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
+    properties:
+      jakarta:
+        persistence:
+          query:
+            timeout: 5000
 
 application:
   create-init-data: false
