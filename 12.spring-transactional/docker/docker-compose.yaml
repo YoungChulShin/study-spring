@@ -12,3 +12,8 @@ services:
     volumes:
       - "./data:/docker-entrypoint-initdb.d"
     command: mysqld --character_set_server=utf8mb4 --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "localhost", "-u", "${MYSQL_USER}", "-p${MYSQL_PASSWORD}", "-e", "SELECT 1"]
+      interval: 60s
+      retries: 3
+      timeout: 5s
