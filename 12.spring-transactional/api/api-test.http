@@ -1,0 +1,10 @@
+### 학교 생성
+POST http://localhost:8080/api/schools
+Content-Type: application/json
+
+{
+  "name": "항공대학교"
+}
+
+### 학교 조회
+GET http://localhost:8080/api/schools/1
