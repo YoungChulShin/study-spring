@@ -48,5 +48,23 @@ Reader DB로 트래픽을 전달할 수 있는 옵션.
 
 실제로 트랜잭션을 처리하는 시스템으로 hint를 전달한다. writer로 요청이 간다고 해서 실패하지 않고, 트랜잭션 시스템이 힌트를 해석하지 못하면 무시된다. 
 
-
-
+# Transactional 애노테이션 동작
+## 클래스 호출 따라가보기
+1. `CglibAopProxy` 클래스 호출.
+   - `AopProxy` 인터페이스의 구현체.
+   - 다른 구현체로는 `JdkDynamicAopProxy`가 있다.
+2.`DynamicAdvisedInterceptor` 클래스의 `intercept` 메서드 호출.
+   - pointcut
+      ```
+      org.springframework.transaction.interceptor.TransactionAttributeSourcePointcut: 
+      org.springframework.transaction.annotation.AnnotationTransactionAttributeSource@74a8120c
+      ```
+   - AnnotationTransactionAttributeSource 클래스
+      - Transactional 애노테이션을 찾아서 TransactionAttribute를 설정한다. 
+3. intercept 메서드에서는 대상 클래스, 메서드를 기준으로 advisor를 가져온다.
+   - 애노테이션이 1개만 설정되어있다면 Transactional에 대한 정보만 리턴된다. 
+      ```java
+      // TransactionInterceptor 객체 1개가 리턴된다. 
+      List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
+     
+      ```
