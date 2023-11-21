@@ -19,7 +19,7 @@ public class SchoolController {
   }
 
   @PostMapping("/api/schools")
-  public Long createSchool(@RequestBody @Valid CreateSchoolRequest request) {
+  public Long createSchool(@RequestBody @Valid CreateSchoolRequest request) throws Exception {
     return schoolService.addSchool(request.name());
   }
 
