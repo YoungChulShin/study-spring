@@ -14,3 +14,15 @@
 - OAuth 2
 - GraalVM native images
 
+# 문서화
+## 접속 정보
+swagger-ui: `/context-path/swagger-ui.html`
+
+api-docs
+- json: `/context-path/v3/api-docs`
+- yaml: `/context-path/v3/api-docs.yaml`
+
+
+
+
+
