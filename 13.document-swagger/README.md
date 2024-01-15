@@ -22,6 +22,10 @@ api-docs
 - json: `/context-path/v3/api-docs`
 - yaml: `/context-path/v3/api-docs.yaml`
 
+## swagger-annotations
+참고 문서: https://javadoc.io/doc/io.swagger.core.v3/swagger-annotations/latest/index.html
+
+
 
 
 
