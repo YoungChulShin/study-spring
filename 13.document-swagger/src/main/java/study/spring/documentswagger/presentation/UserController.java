@@ -26,11 +26,27 @@ import study.spring.documentswagger.presentation.model.UserDto;
 @RestController
 public class UserController {
 
+  @Operation(summary = "'userId'를 이용해서 사용자 정보를 조회합니다.")
+  @Parameters(
+      value = {
+          @Parameter(
+              name = "userId",
+              description = "사용자 id",
+              example = "1",
+              required = true
+          )
+      }
+  )
+  @GetMapping("/api/users/{userId}")
+  public UserDto get(@PathVariable Long userId) {
+    return new UserDto(userId, "testuser", 10, GenderDto.MALE);
+  }
+
   @Operation(summary = "사용자 정보를 생성합니다.")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
-          description = "사용자 생성",
+          description = "사용자 생성 성공",
           content = {
               @Content(
                   mediaType = "application/json",
@@ -56,22 +72,6 @@ public class UserController {
   @PostMapping("/api/users")
   public UserDto add(@RequestBody @Valid AddUserRequest request) {
     return new UserDto(1L, request.getUserName(), request.getAge(), request.getGender());
-  }
-
-  @Operation(summary = "'userId'를 이용해서 사용자 정보를 조회합니다.")
-  @Parameters(
-      value = {
-          @Parameter(
-              name = "userId",
-              description = "사용자 id",
-              example = "1",
-              required = true
-          )
-      }
-  )
-  @GetMapping("/api/users/{userId}")
-  public UserDto get(@PathVariable Long userId) {
-    return new UserDto(userId, "testuser", 10, GenderDto.MALE);
   }
 
   @Operation(summary = "사용자 정보를 수정합니다.")
