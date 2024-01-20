@@ -1,10 +1,13 @@
 package study.spring.documentswagger.presentation;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,7 @@ import study.spring.documentswagger.presentation.model.GenderDto;
 import study.spring.documentswagger.presentation.model.UpdateUserRequest;
 import study.spring.documentswagger.presentation.model.UserDto;
 
+@Tag(name = "사용자 관리")
 @RestController
 public class UserController {
 
@@ -40,7 +44,14 @@ public class UserController {
                   mediaType = "application/json",
                   schema = @Schema(implementation = ErrorDto.class)) }
       ),
-
+      @ApiResponse(
+          responseCode = "500",
+          description = "내부 처리중 에러 발생",
+          content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorDto.class)) }
+      )
   })
   @PostMapping("/api/users")
   public UserDto add(@RequestBody @Valid AddUserRequest request) {
@@ -48,6 +59,16 @@ public class UserController {
   }
 
   @Operation(summary = "'userId'를 이용해서 사용자 정보를 조회합니다.")
+  @Parameters(
+      value = {
+          @Parameter(
+              name = "userId",
+              description = "사용자 id",
+              example = "1",
+              required = true
+          )
+      }
+  )
   @GetMapping("/api/users/{userId}")
   public UserDto get(@PathVariable Long userId) {
     return new UserDto(userId, "testuser", 10, GenderDto.MALE);
