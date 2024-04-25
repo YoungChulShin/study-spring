@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    open-in-view: false
+
+  datasource:
+    cluster:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: id
+      password: pass
+      writer:
+        url: jdbc:mysql://test
+      reader:
+        url: jdbc:mysql://test
