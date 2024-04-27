@@ -19,7 +19,12 @@ function connect() {
     setConnected(true);
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/greetings', function (greeting) {
+      console.log('Received a message from /topic/greetings: ' + greeting.body);
       showGreeting(JSON.parse(greeting.body).content);
+    });
+    stompClient.subscribe('/user/queue/errors', function (message) {
+      console.log('Received a message from /topic/greetings: ' + message.body);
+      alert('Error: ' + message.body);
     });
   });
 }
