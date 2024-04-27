@@ -11,9 +11,20 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
-  public void configureMessageBroker(MessageBrokerRegistry config) {
-    config.enableSimpleBroker("/topic", "/queue");
-    config.setApplicationDestinationPrefixes("/app");
+  public void configureMessageBroker(MessageBrokerRegistry registry) {
+    registry.setApplicationDestinationPrefixes("/app")
+        .enableStompBrokerRelay("/topic", "/queue")
+        .setRelayHost("localhost")
+        .setVirtualHost("/")
+        .setRelayPort(61613)
+        .setSystemLogin("user")
+        .setSystemPasscode("password")
+        .setClientLogin("user")
+        .setClientPasscode("password");
+
+
+//    config.enableSimpleBroker("/topic", "/queue");
+//    config.setApplicationDestinationPrefixes("/app");
   }
 
   @Override

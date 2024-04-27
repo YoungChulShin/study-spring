@@ -24,7 +24,7 @@ public class GreetingController {
     }
 
     simpMessagingTemplate.convertAndSend(
-        "/topic/greetings/" + message.getChannelId(),
+        "/topic/" + message.getChannelId(),
         new Greeting(String.format("[Channel: %s] Hello, %s!", message.getChannelId(), message.getName())));
   }
 
