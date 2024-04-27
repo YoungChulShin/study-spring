@@ -12,4 +12,12 @@ import lombok.Setter;
 public class HelloMessage {
 
   private String name;
+  private String channelId;
+
+  public boolean isValid() {
+    return name != null
+        && !name.isEmpty()
+        && channelId != null
+        && !channelId.isEmpty();
+  }
 }
