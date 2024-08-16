@@ -9,9 +9,9 @@ import study.spring.websocket.greetingwithkafka.kafka.KafkaConstant;
 @Controller
 public class GreetingController {
 
-  private final KafkaTemplate<String, Object> kafkaTemplate;
+  private final KafkaTemplate<String, Greeting> kafkaTemplate;
 
-  public GreetingController(KafkaTemplate<String, Object> kafkaTemplate) {
+  public GreetingController(KafkaTemplate<String, Greeting> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
   }
 
